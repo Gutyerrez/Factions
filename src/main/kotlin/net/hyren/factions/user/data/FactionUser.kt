@@ -72,7 +72,11 @@ data class FactionUser(val user: User) : User(
 
     override var updatedAt: DateTime? = null
 
-    val faction = factionId?.let { FactionsProvider.Cache.Local.FACTION.provide().fetchById(it) }
+    val faction = factionId?.let {
+        println("ID da facção: ${it.value}")
+
+        FactionsProvider.Cache.Local.FACTION.provide().fetchById(it)
+    }
 
     val factionName = faction?.name
     val factionTag = faction?.tag

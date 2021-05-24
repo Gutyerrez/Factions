@@ -5,6 +5,8 @@ import net.hyren.factions.faction.storage.dao.FactionDAO
 import net.hyren.factions.faction.storage.dto.*
 import net.hyren.factions.faction.storage.repositories.IFactionsRepository
 import net.hyren.factions.faction.storage.table.FactionsTable
+import org.jetbrains.exposed.sql.StdOutSqlLogger
+import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
@@ -13,11 +15,14 @@ import java.util.*
  * @author Gutyerrez
  */
 class PostgreSQLFactionsRepository : IFactionsRepository {
+
     override fun fetchById(
         fetchFactionByIdDTO: FetchFactionByIdDTO
     ) = transaction(
         FactionsAlphaProvider.Databases.PostgreSQL.POSTGRESQL_FACTIONS_ALPHA.provide()
     ) {
+        addLogger(StdOutSqlLogger)
+
         FactionDAO.findById(fetchFactionByIdDTO.id)?.toFaction()
     }
 

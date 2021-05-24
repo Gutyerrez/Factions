@@ -29,17 +29,12 @@ class FactionProfileCommand : CustomCommand("perfil") {
             FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserName(args[0]) ?: commandSender.sendMessage(
                 DefaultMessage.USER_NOT_FOUND
             )
-
-            println("asd")
-
             return false
         } else {
             FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id) ?: throw NullPointerException(
                 "faction user is null"
             )
         }
-
-        println("opa")
 
         commandSender.sendMessage(
             ComponentBuilder()

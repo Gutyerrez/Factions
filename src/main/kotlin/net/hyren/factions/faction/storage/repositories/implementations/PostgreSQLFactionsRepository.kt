@@ -1,7 +1,6 @@
 package net.hyren.factions.faction.storage.repositories.implementations
 
 import net.hyren.factions.alpha.FactionsAlphaProvider
-import net.hyren.factions.faction.data.Faction
 import net.hyren.factions.faction.storage.dao.FactionDAO
 import net.hyren.factions.faction.storage.dto.*
 import net.hyren.factions.faction.storage.repositories.IFactionsRepository
@@ -52,6 +51,7 @@ class PostgreSQLFactionsRepository : IFactionsRepository {
         ) {
             this.name = createFactionDTO.name
             this.tag = createFactionDTO.tag
+            this.warWins = 0
         }.toFaction()
     }
 

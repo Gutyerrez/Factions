@@ -44,8 +44,8 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
         o2.landType.color.code.compareTo(o1.landType.color.code)
     }
 
-    var colors: Array<Array<FactionLand>> = Array<Array<FactionLand>>(19) {
-        sizedArray<FactionLand>(19)
+    var colors: Array<Array<FactionLand>> = Array<Array<FactionLand>>(20) {
+        sizedArray<FactionLand>(20)
     }
 
     for (x in minChunkX..maxChunkX) {

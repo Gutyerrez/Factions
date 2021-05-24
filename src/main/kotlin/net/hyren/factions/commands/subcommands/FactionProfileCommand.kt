@@ -2,6 +2,7 @@ package net.hyren.factions.commands.subcommands
 
 import net.hyren.core.shared.CoreConstants
 import net.hyren.core.shared.CoreProvider
+import net.hyren.core.shared.commands.argument.Argument
 import net.hyren.core.shared.groups.Group
 import net.hyren.core.shared.misc.utils.DateFormatter
 import net.hyren.core.shared.misc.utils.DefaultMessage
@@ -19,6 +20,10 @@ import org.joda.time.DateTime
 class FactionProfileCommand : CustomCommand("perfil") {
 
     override fun getParent() = FactionCommand()
+
+    override fun getArguments() = listOf(
+        Argument("usuário")
+    )
 
     override fun onCommand(
         commandSender: CommandSender,

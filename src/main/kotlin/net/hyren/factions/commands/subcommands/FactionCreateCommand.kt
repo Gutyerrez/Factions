@@ -1,0 +1,125 @@
+package net.hyren.factions.commands.subcommands
+
+import net.hyren.core.shared.CoreConstants
+import net.hyren.core.shared.CoreProvider
+import net.hyren.core.shared.commands.argument.Argument
+import net.hyren.core.shared.misc.utils.DefaultMessage
+import net.hyren.core.shared.users.data.User
+import net.hyren.core.spigot.command.CustomCommand
+import net.hyren.factions.FactionsConstants
+import net.hyren.factions.FactionsProvider
+import net.hyren.factions.YOU_ALREADY_HAVE_FACTION
+import net.hyren.factions.commands.FactionCommand
+import net.hyren.factions.echo.packet.FactionUserUpdateEchoPacket
+import net.hyren.factions.faction.storage.dto.CreateFactionDTO
+import net.hyren.factions.user.data.FactionUser
+import net.hyren.factions.user.role.Role
+import net.hyren.factions.user.storage.dto.UpdateFactionUserDTO
+import net.md_5.bungee.api.chat.TextComponent
+import org.bukkit.command.CommandSender
+import org.joda.time.DateTime
+import kotlin.NullPointerException
+
+/**
+ * @author Gutyerrez
+ */
+class FactionCreateCommand : CustomCommand("criar") {
+
+    override fun getParent() = FactionCommand()
+
+    override fun getArguments() = listOf(
+        Argument("tag"),
+        Argument("nome")
+    )
+
+    override fun onCommand(
+        commandSender: CommandSender,
+        user: User?,
+        args: Array<out String>
+    ): Boolean {
+        val tag = args[0].uppercase()
+        val name = args[1]
+
+        var factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id) ?: throw NullPointerException(
+            "faction user is null"
+        )
+
+        if (factionUser.hasFaction()) {
+            commandSender.sendMessage(DefaultMessage.YOU_ALREADY_HAVE_FACTION)
+            return false
+        }
+
+        if (tag.length != 3) {
+            commandSender.sendMessage(
+                TextComponent("§cA tag de sua facção deve conter 3 caracteres.")
+            )
+            return false
+        }
+
+        if (!FactionsConstants.Faction.FACTION_TAG_REGEX.matches(tag)) {
+            commandSender.sendMessage(
+                TextComponent("§cA tag da facção não pode conter caracteres especiais.")
+            )
+            return false
+        }
+
+        if (FactionsProvider.Controllers.FactionController.isFactionTagTaken(tag)) {
+            commandSender.sendMessage(
+                TextComponent("§cOps! Já existe outra facção utilizando a tag \"$tag\".")
+            )
+            return false
+        }
+
+        if (name.length < 5 || name.length > 20) {
+            commandSender.sendMessage(
+                TextComponent("§cO nome de sua facção deve conter de 5 a 20 caracteres.")
+            )
+            return false
+        }
+
+        if (!FactionsConstants.Faction.FACTION_NAME_REGEX.matches(name)) {
+            commandSender.sendMessage(
+                TextComponent("§cO nome de sua facção não pode conter caracteres especiais.")
+            )
+            return false
+        }
+
+        if (FactionsProvider.Controllers.FactionController.isFactionNameTaken(name)) {
+            commandSender.sendMessage(
+                TextComponent("§cJá existe outra facção utilizando o nome \"$name\".")
+            )
+            return false
+        }
+
+        val faction = FactionsProvider.Repositories.PostgreSQL.FACTIONS_REPOSITORY.provide().create(
+            CreateFactionDTO(
+                name,
+                tag
+            )
+        ) ?: throw NullPointerException("cannot create faction $name - $tag")
+
+        factionUser = FactionsProvider.Repositories.PostgreSQL.FACTIONS_USERS_REPOSITORY.provide().update(
+            UpdateFactionUserDTO(
+                user.id
+            ) {
+                this.factionId = faction.id
+                this.role = Role.LEADER
+                this.updatedAt = DateTime.now(
+                    CoreConstants.DATE_TIME_ZONE
+                )
+            }
+        )
+
+        CoreProvider.Databases.Redis.ECHO.provide().publishToCurrentServer(
+            FactionUserUpdateEchoPacket(
+                factionUser.id
+            )
+        )
+
+        commandSender.sendMessage(
+            TextComponent("§eYAY! Sua facção foi criada com sucesso!")
+        )
+        return true
+    }
+
+}

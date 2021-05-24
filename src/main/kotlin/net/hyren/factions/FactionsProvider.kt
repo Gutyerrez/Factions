@@ -2,8 +2,8 @@ package net.hyren.factions
 
 import net.hyren.core.shared.providers.cache.local.LocalCacheProvider
 import net.hyren.core.shared.providers.databases.postgresql.providers.PostgreSQLRepositoryProvider
-import net.hyren.factions.faction.cache.local.FactionUsersLocalCache
 import net.hyren.factions.faction.cache.local.FactionLocalCache
+import net.hyren.factions.faction.cache.local.FactionUsersLocalCache
 import net.hyren.factions.faction.invite.cache.local.FactionInvitesLocalCache
 import net.hyren.factions.faction.invite.storage.repositories.IFactionsInvitesRepository
 import net.hyren.factions.faction.invite.storage.repositories.implementations.PostgreSQLFactionsInvitesRepository
@@ -15,7 +15,6 @@ import net.hyren.factions.faction.storage.repositories.implementations.PostgreSQ
 import net.hyren.factions.user.cache.local.FactionUserLocalCache
 import net.hyren.factions.user.storage.repositories.IFactionsUsersRepository
 import net.hyren.factions.user.storage.repositories.implementations.PostgreSQLFactionsUsersRepository
-import java.util.*
 
 /**
  * @author Gutyerrez
@@ -25,6 +24,7 @@ object FactionsProvider {
     fun prepare() {
         // Factions repository
         Repositories.PostgreSQL.FACTIONS_REPOSITORY.prepare()
+        Repositories.PostgreSQL.FACTIONS_LANDS_REPOSITORY.prepare()
         Repositories.PostgreSQL.FACTIONS_INVITES_REPOSITORY.prepare()
 
         // Users repository
@@ -99,10 +99,6 @@ object FactionsProvider {
             fun isFactionTagTaken(tag: String) = Cache.Local.FACTION.provide().fetchByTag(tag) != null
 
             fun isFactionNameTaken(name: String) = Cache.Local.FACTION.provide().fetchByName(name) != null
-
-            fun createFactionId(name: String, tag: String) = UUID.nameUUIDFromBytes(
-                "Faction:($name/$tag)".toByteArray()
-            )
 
         }
 

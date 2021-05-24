@@ -117,76 +117,79 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
                 for (x in 0..18) {
                     val factionLand = colors[x][y]
 
-                    componentBuilder.append(factionLand.landType.color.toString())
-                        .append(FactionsConstants.Symbols.CUBE.toString())
+                    componentBuilder.append(factionLand.landType.color.toString()).append(FactionsConstants.Symbols.CUBE.toString())
                 }
 
-                when (y) {
-                    2 -> {
+                if (y == 2) {
+                    componentBuilder.append("  ").append(
+                        "${
+                            if (direction == BlockFace.NORTH_WEST) {
+                                "§c§l"
+                            } else {
+                                "§6"
+                            }
+                        }"
+                    ).append("\\").append(
+                        "${
+                            if (direction == BlockFace.NORTH) {
+                                "§c§l"
+                            } else {
+                                "§6"
+                            }
+                        }"
+                    ).append("N").append(
+                        "${
+                            if (direction == BlockFace.NORTH_EAST) {
+                                "§c§l"
+                            } else {
+                                "§6"
+                            }
+                        }"
+                    ).append("/")
+                } else if (y == 3) {
+                    componentBuilder.append("  ").append(
+                            "${
+                                if (direction == BlockFace.WEST) {
+                                    "§c§l"
+                                } else {
+                                    "§6"
+                                }
+                            }"
+                        ).append("O").append("§6§l+").append(
+                            "${
+                                if (direction == BlockFace.EAST) {
+                                    "§c§l"
+                                } else {
+                                    "§6"
+                                }
+                            }"
+                        ).append("L")
+                } else if (y == 4) {
+                    componentBuilder.append("  ")
+                        .append("${if (direction == BlockFace.SOUTH_EAST) {
+                            "§c§l"
+                        } else {
+                            "§6"
+                        }}")
+                        .append("/")
+                        .append("${if (direction == BlockFace.SOUTH) {
+                            "§c§l"
+                        } else {
+                            "§6"
+                        }}")
+                        .append("S")
+                        .append("${if (direction == BlockFace.SOUTH_WEST) {
+                            "§c§l"
+                        } else {
+                            "§6"
+                        }}")
+                        .append("\\")
+                } else if (y >= 7) {
+                    LandType.values().filter { it != LandType.CONTESTED }.forEach {
                         componentBuilder.append("  ")
-                            .append("${if (direction == BlockFace.NORTH_WEST) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }}")
-                            .append("\\")
-                            .append("${if (direction == BlockFace.NORTH) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }}")
-                            .append("N")
-                            .append("${if (direction == BlockFace.NORTH_EAST) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }}")
-                            .append("/")
-                    }
-                    3 -> {
-                        componentBuilder.append("  ")
-                            .append("${if (direction == BlockFace.WEST) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }}")
-                            .append("O")
-                            .append("§6§l+")
-                            .append("${if (direction == BlockFace.EAST) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }}")
-                            .append("L")
-                    }
-                    4 -> {
-                        componentBuilder.append("  ")
-                            .append("${if (direction == BlockFace.SOUTH_EAST) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }}")
-                            .append("/")
-                            .append("${if (direction == BlockFace.SOUTH) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }}")
-                            .append("S")
-                            .append("${if (direction == BlockFace.SOUTH_WEST) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }}")
-                            .append("\\")
-                    }
-                    6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 -> {
-                        LandType.values().filter { it != LandType.CONTESTED }.forEach {
-                            componentBuilder.append("  ")
-                                .append("${it.color}")
-                                .append(FactionsConstants.Symbols.CUBE.toString())
-                                .append("${ChatColor.WHITE} ${it.displayName}")
-                        }
+                            .append("${it.color}")
+                            .append(FactionsConstants.Symbols.CUBE.toString())
+                            .append("${ChatColor.WHITE} ${it.displayName}")
                     }
                 }
 

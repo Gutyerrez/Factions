@@ -4,7 +4,7 @@ on:
       - main
 
 jobs:
-  factions-alpha:
+  factions:
     runs-on: ubuntu-latest
 
     env:
@@ -30,7 +30,7 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
           packages: |
             [
-              "net.hyren.factions-alpha"
+              "net.hyren.factions"
             ]
       - name: Build project
         run: ./gradlew shadowJar

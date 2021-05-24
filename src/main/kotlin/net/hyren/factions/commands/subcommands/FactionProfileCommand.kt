@@ -51,7 +51,7 @@ class FactionProfileCommand : CustomCommand("perfil") {
                         factionUser.name
                     }
                 }")
-                .append("\n")
+                .append("\n\n")
                 .append { componentBuilder, _ ->
                     if (user.hasGroup(Group.MANAGER)) {
                         componentBuilder.append("§fID do usuário: §7${factionUser.getUniqueId()}")
@@ -106,12 +106,13 @@ class FactionProfileCommand : CustomCommand("perfil") {
                     }
                 }")
                 .append("\n")
-                .append("§fÚltimo login: ${DateFormatter.formatToDefault(
+                .append("§fÚltimo login: §7${DateFormatter.formatToDefault(
                     factionUser.updatedAt ?: DateTime.now(
                         CoreConstants.DATE_TIME_ZONE
                     ),
                     "às"
                 )}")
+                .append("\n")
                 .create()
         )
         return true

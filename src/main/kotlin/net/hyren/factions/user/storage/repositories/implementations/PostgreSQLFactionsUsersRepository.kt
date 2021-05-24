@@ -2,7 +2,6 @@ package net.hyren.factions.user.storage.repositories.implementations
 
 import net.hyren.core.shared.CoreProvider
 import net.hyren.factions.alpha.FactionsAlphaProvider
-import net.hyren.factions.user.data.FactionUser
 import net.hyren.factions.user.storage.dao.FactionUserDAO
 import net.hyren.factions.user.storage.dto.*
 import net.hyren.factions.user.storage.repositories.IFactionsUsersRepository
@@ -59,7 +58,7 @@ class PostgreSQLFactionsUsersRepository : IFactionsUsersRepository {
         FactionsAlphaProvider.Databases.PostgreSQL.POSTGRESQL_FACTIONS_ALPHA.provide()
     ) {
         FactionUserDAO.findById(updateFactionUserDTO.userId)?.apply {
-            updateFactionUserDTO.update(this)
+            updateFactionUserDTO.update.invoke(this)
         }?.toFactionUser() ?: create(
             CreateFactionUserDTO(
                 updateFactionUserDTO.userId

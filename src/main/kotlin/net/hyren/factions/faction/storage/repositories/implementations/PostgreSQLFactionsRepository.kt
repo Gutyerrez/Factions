@@ -54,6 +54,16 @@ class PostgreSQLFactionsRepository : IFactionsRepository {
         }.toFaction()
     }
 
+    override fun update(
+        updateFactionDTO: UpdateFactionDTO
+    ) = transaction(
+        FactionsAlphaProvider.Databases.PostgreSQL.POSTGRESQL_FACTIONS_ALPHA.provide()
+    ) {
+        FactionDAO.findById(updateFactionDTO.id)?.apply {
+            updateFactionDTO.update.invoke(this)
+        }
+    }?.writeValues?.size != 0
+
     override fun delete(
         deleteFactionDTO: DeleteFactionDTO
     ) = transaction(
@@ -63,13 +73,5 @@ class PostgreSQLFactionsRepository : IFactionsRepository {
             FactionsTable.id eq deleteFactionDTO.id
         } > 0
     }
-
-    override fun update(
-        updateFactionDTO: UpdateFactionDTO
-    ) = transaction(
-        FactionsAlphaProvider.Databases.PostgreSQL.POSTGRESQL_FACTIONS_ALPHA.provide()
-    ) {
-        FactionDAO.findById(updateFactionDTO.id)?.apply { updateFactionDTO.update(this) }
-    }?.writeValues?.size != 0
 
 }

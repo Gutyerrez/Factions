@@ -2,7 +2,6 @@ package net.hyren.factions.commands.subcommands
 
 import net.hyren.core.shared.CoreConstants
 import net.hyren.core.shared.CoreProvider
-import net.hyren.core.shared.commands.argument.Argument
 import net.hyren.core.shared.misc.utils.DefaultMessage
 import net.hyren.core.shared.users.data.User
 import net.hyren.core.spigot.command.CustomCommand
@@ -12,13 +11,13 @@ import net.hyren.factions.YOU_ALREADY_HAVE_FACTION
 import net.hyren.factions.commands.FactionCommand
 import net.hyren.factions.echo.packet.FactionUserUpdateEchoPacket
 import net.hyren.factions.faction.storage.dto.CreateFactionDTO
-import net.hyren.factions.user.data.FactionUser
 import net.hyren.factions.user.role.Role
 import net.hyren.factions.user.storage.dto.UpdateFactionUserDTO
+import net.md_5.bungee.api.chat.BaseComponent
+import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.command.CommandSender
 import org.joda.time.DateTime
-import kotlin.NullPointerException
 
 /**
  * @author Gutyerrez
@@ -27,18 +26,22 @@ class FactionCreateCommand : CustomCommand("criar") {
 
     override fun getParent() = FactionCommand()
 
-    override fun getArguments() = listOf(
-        Argument("tag"),
-        Argument("nome")
-    )
+    override fun getUsage0(): Array<BaseComponent> = ComponentBuilder(
+        "§cUtilize /${getNameExact()} <tag> <nome>."
+    ).create()
 
     override fun onCommand(
         commandSender: CommandSender,
         user: User?,
         args: Array<out String>
     ): Boolean {
+        if (args.size < 2) {
+            commandSender.sendMessage(usage)
+            return false
+        }
+
         val tag = args[0].uppercase()
-        val name = args[1]
+        val name = args.copyOfRange(1, args.size).joinToString(" ")
 
         var factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id) ?: throw NullPointerException(
             "faction user is null"

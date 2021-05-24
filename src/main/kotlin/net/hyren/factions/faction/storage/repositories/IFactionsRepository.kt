@@ -25,12 +25,12 @@ interface IFactionsRepository : IRepository {
         createFactionDTO: CreateFactionDTO
     ): Faction?
 
-    fun delete(
-        deleteFactionDTO: DeleteFactionDTO
-    ): Boolean
-
     fun update(
         updateFactionDTO: UpdateFactionDTO
+    ): Boolean
+
+    fun delete(
+        deleteFactionDTO: DeleteFactionDTO
     ): Boolean
 
 }

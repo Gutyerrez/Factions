@@ -18,7 +18,7 @@ class FactionInfoCommand : CustomCommand("info") {
     override fun getParent() = FactionCommand()
 
     override fun getUsage0(): Array<BaseComponent> = ComponentBuilder(
-        "§cUtilize /f info <tag>."
+        "§cUtilize /${this.getNameExact()} <tag>."
     ).create()
 
     override fun onCommand(
@@ -103,7 +103,7 @@ class FactionInfoCommand : CustomCommand("info") {
             )
             true
         } else {
-            commandSender.sendMessage(getUsage())
+            commandSender.sendMessage(usage)
             false
         }
     }

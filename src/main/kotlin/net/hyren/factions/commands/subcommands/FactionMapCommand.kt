@@ -1,6 +1,5 @@
 package net.hyren.factions.commands.subcommands
 
-import net.hyren.core.shared.commands.Commandable
 import net.hyren.core.shared.users.data.User
 import net.hyren.core.spigot.command.CustomCommand
 import net.hyren.factions.FactionsProvider
@@ -11,7 +10,7 @@ import org.bukkit.command.CommandSender
 /**
  * @author Gutyerrez
  */
-class FactionMapCommand : CustomCommand("map") {
+class FactionMapCommand : CustomCommand("mapa") {
 
     override fun getParent() = FactionCommand()
 

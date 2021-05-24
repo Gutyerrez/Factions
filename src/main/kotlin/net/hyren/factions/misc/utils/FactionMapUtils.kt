@@ -44,8 +44,8 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
         o2.landType.color.code.compareTo(o1.landType.color.code)
     }
 
-    var colors: Array<Array<FactionLand>> = Array<Array<FactionLand>>(20) {
-        sizedArray<FactionLand>(20)
+    var colors: Array<Array<FactionLand>> = Array<Array<FactionLand>>(19) {
+        sizedArray<FactionLand>(19)
     }
 
     for (x in minChunkX..maxChunkX) {
@@ -113,8 +113,8 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
     return ComponentBuilder()
         .append("\n")
         .append { componentBuilder, _ ->
-            for (y in 0..19) {
-                for (x in 0..19) {
+            for (y in 0..18) {
+                for (x in 0..18) {
                     val factionLand = colors[x][y]
 
                     componentBuilder.append(ChatColor.BOLD.toString())

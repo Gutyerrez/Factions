@@ -51,7 +51,6 @@ class PostgreSQLFactionsRepository : IFactionsRepository {
         ) {
             this.name = createFactionDTO.name
             this.tag = createFactionDTO.tag
-            this.warWins = 0
         }.toFaction()
     }
 

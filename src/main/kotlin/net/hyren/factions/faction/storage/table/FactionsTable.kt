@@ -12,9 +12,9 @@ object FactionsTable : UUIDTable("factions") {
 
     val name = varchar("name", 20)
     val tag = varchar("tag", 3)
-    val warWins = integer("war_wins")
+    val warWins = integer("war_wins").default(0)
     val base = json<SerializedLocation>("base", SerializedLocation::class).nullable()
-    val outPosting = bool("out_posting")
+    val outPosting = bool("out_posting").default(false)
     val createdAt = datetime("created_at")
     val updatedAt = datetime("updated_at").nullable()
 

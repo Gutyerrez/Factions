@@ -82,7 +82,7 @@ class FactionInfoCommand : CustomCommand("info") {
                         faction.getNeutralKills()
                     } §8Civil: §7${
                         faction.getCivilianKills()
-                    }]")
+                    }§8]")
                     .append("\n")
                     .append("§2Mortes: §7${faction.getTotalDeaths()} §8[Inimigo: §7${
                         faction.getEnemyDeaths()
@@ -90,7 +90,7 @@ class FactionInfoCommand : CustomCommand("info") {
                         faction.getNeutralDeaths()
                     } §8Civil: §7${
                         faction.getCivilianDeaths()
-                    }]")
+                    }§8]")
                     .append("\n")
                     .append("§2${
                         if (FactionsConstants.Faction.MAX_ALLIES > 1) "Aliados" else "Aliado"

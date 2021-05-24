@@ -2,6 +2,7 @@ package net.hyren.factions.misc.utils
 
 import net.hyren.core.shared.CoreConstants
 import net.hyren.core.shared.misc.kotlin.sizedArray
+import net.hyren.core.shared.misc.utils.ChatColor.Companion.plus
 import net.hyren.core.spigot.misc.utils.DirectionUtils
 import net.hyren.factions.FactionsConstants
 import net.hyren.factions.FactionsProvider
@@ -39,9 +40,7 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
     val maxChunkX = locationChunkX + 9
     val maxChunkZ = locationChunkZ + 9
 
-    val lands = mutableListOf<FactionLand>()
-
-    var colors: Array<Array<FactionLand>> = Array<Array<FactionLand>>(19) {
+    var lands = Array<Array<FactionLand>>(19) {
         sizedArray<FactionLand>(19)
     }
 
@@ -53,9 +52,7 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
             var factionLand = FactionsProvider.Cache.Local.FACTION_LANDS.provide().fetchByXAndZ(x, z)
 
             if (factionLand != null) {
-                lands.add(factionLand)
-
-                colors[indexX][indexY] = factionLand
+                lands[indexX][indexY] = factionLand
 
                 continue
             }
@@ -74,9 +71,7 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
                 )
             )
 
-            lands.add(factionLand)
-
-            colors[indexX][indexY] = factionLand
+            lands[indexX][indexY] = factionLand
         }
     }
 
@@ -94,17 +89,15 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
         )
     )
 
-    lands.add(factionLand)
-
-    colors[9][9] = factionLand
+    lands[9][9] = factionLand
 
     val direction = DirectionUtils.yawToFace(location.yaw)
     val vectorDirection = DirectionUtils.vectorToFace(location.direction)
 
     when (vectorDirection) {
-        BlockFace.EAST -> colors = rotateToRight(colors, 1)
-        BlockFace.SOUTH -> colors = rotateToRight(colors, 2)
-        BlockFace.WEST -> colors = rotateToRight(colors, 3)
+        BlockFace.EAST -> lands = rotateToRight(lands, 1)
+        BlockFace.SOUTH -> lands = rotateToRight(lands, 2)
+        BlockFace.WEST -> lands = rotateToRight(lands, 3)
     }
 
     val landTypeIterator = LandType.values().filter { it != LandType.CONTESTED }.iterator()
@@ -114,14 +107,10 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
         .append { componentBuilder, _ ->
             for (y in 0..18) {
                 for (x in 0..18) {
-                    val factionLand = colors[x][y]
+                    val factionLand = lands[x][y]
 
                     componentBuilder.append("${
-                        factionLand.landType.color
-                    }${
-                        ChatColor.BOLD
-                    }${
-                        FactionsConstants.Symbols.CUBE
+                        factionLand.landType.color + "${ChatColor.BOLD}" + FactionsConstants.Symbols.CUBE
                     }")
                 }
 
@@ -197,7 +186,9 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
                             val landType = landTypeIterator.next()
 
                             componentBuilder.append("  ")
-                                .append("${landType.color} ${FactionsConstants.Symbols.CUBE}")
+                                .append("${
+                                    landType.color + "${ChatColor.BOLD}" + FactionsConstants.Symbols.CUBE
+                                }")
                                 .append("§f ${landType.displayName}")
                         }
                     }
@@ -208,10 +199,8 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
 
             componentBuilder
         }
-        .append("\n")
         .create()
 }
-
 
 internal fun rotateToRight(
     array: Array<Array<FactionLand>>,

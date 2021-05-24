@@ -26,10 +26,14 @@ class FactionProfileCommand : CustomCommand("perfil") {
         args: Array<out String>
     ): Boolean {
         val factionUser = if (args.size == 1) {
-            FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserName(args[0]) ?: commandSender.sendMessage(
-                DefaultMessage.USER_NOT_FOUND
-            )
-            return false
+            val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserName(args[0])
+
+            if (factionUser == null) {
+                commandSender.sendMessage(DefaultMessage.USER_NOT_FOUND)
+                return false
+            }
+
+            factionUser
         } else {
             FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id) ?: throw NullPointerException(
                 "faction user is null"
@@ -48,7 +52,7 @@ class FactionProfileCommand : CustomCommand("perfil") {
                 }")
                 .append("\n\n")
                 .append { componentBuilder, _ ->
-                    if (user.hasGroup(Group.MANAGER)) {
+                    if (user!!.hasGroup(Group.MANAGER)) {
                         componentBuilder.append("§fID do usuário: §7${factionUser.getUniqueId()}")
                     }
 

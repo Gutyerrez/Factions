@@ -29,10 +29,14 @@ class FactionInfoCommand : CustomCommand("info") {
         val faction = if (args.size == 1) {
             FactionsProvider.Cache.Local.FACTION.provide().fetchByTag(args[0])
         } else {
-            FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id)?.faction ?: commandSender.sendMessage(
-                usage
-            )
-            return false
+            val faction = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id)?.faction
+
+            if (faction == null) {
+                commandSender.sendMessage(usage)
+                return false
+            }
+
+            faction
         }
 
         return if (faction != null) {

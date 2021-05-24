@@ -117,8 +117,7 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
                 for (x in 0..18) {
                     val factionLand = colors[x][y]
 
-                    componentBuilder.append(ChatColor.BOLD.toString())
-                        .append(factionLand.landType.color.toString())
+                    componentBuilder.append(factionLand.landType.color.toString())
                         .append(FactionsConstants.Symbols.CUBE.toString())
                 }
 
@@ -126,58 +125,58 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
                     2 -> {
                         componentBuilder.append("  ")
                             .append("${if (direction == BlockFace.NORTH_WEST) {
-                                ChatColor.RED
+                                "§c§l"
                             } else {
-                                ChatColor.GOLD
+                                "§6"
                             }}")
                             .append("\\")
                             .append("${if (direction == BlockFace.NORTH) {
-                                ChatColor.RED
+                                "§c§l"
                             } else {
-                                ChatColor.GOLD
+                                "§6"
                             }}")
                             .append("N")
                             .append("${if (direction == BlockFace.NORTH_EAST) {
-                                ChatColor.RED
+                                "§c§l"
                             } else {
-                                ChatColor.GOLD
+                                "§6"
                             }}")
                             .append("/")
                     }
                     3 -> {
                         componentBuilder.append("  ")
                             .append("${if (direction == BlockFace.WEST) {
-                                ChatColor.RED
+                                "§c§l"
                             } else {
-                                ChatColor.GOLD
+                                "§6"
                             }}")
                             .append("O")
-                            .append("${ChatColor.GOLD}${ChatColor.BOLD}+")
+                            .append("§6§l+")
                             .append("${if (direction == BlockFace.EAST) {
-                                ChatColor.RED
+                                "§c§l"
                             } else {
-                                ChatColor.GOLD
+                                "§6"
                             }}")
                             .append("L")
                     }
                     4 -> {
                         componentBuilder.append("  ")
                             .append("${if (direction == BlockFace.SOUTH_EAST) {
-                                ChatColor.RED
+                                "§c§l"
                             } else {
-                                ChatColor.GOLD
+                                "§6"
                             }}")
                             .append("/")
                             .append("${if (direction == BlockFace.SOUTH) {
-                                ChatColor.RED
+                                "§c§l"
                             } else {
-                                ChatColor.GOLD
+                                "§6"
                             }}")
                             .append("S")
                             .append("${if (direction == BlockFace.SOUTH_WEST) {
-                                ChatColor.RED
+                                "§c§l"
                             } else {
-                                ChatColor.GOLD
+                                "§6"
                             }}")
                             .append("\\")
                     }

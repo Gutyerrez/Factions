@@ -88,7 +88,7 @@ class FactionProfileCommand : CustomCommand("perfil") {
                     factionUser.neutralKills
                 } §8Civil: §7${
                     factionUser.civilianKills
-                }]")
+                }§8]")
                 .append("\n")
                 .append("§fMortes: §7${factionUser.getTotalDeaths()} §8[Inimigo: §7${
                     factionUser.enemyDeaths
@@ -96,7 +96,7 @@ class FactionProfileCommand : CustomCommand("perfil") {
                     factionUser.neutralDeaths
                 } §8Civil: §7${
                     factionUser.civilianDeaths
-                }]")
+                }§8]")
                 .append("\n")
                 .append("§fStatus: ${
                     if (factionUser.isOnline() && factionUser.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {

@@ -66,7 +66,7 @@ data class FactionUser(val user: User) : User(
 
     // Timestamps
 
-    override var createdAt: DateTime? = DateTime.now(
+    override var createdAt: DateTime = DateTime.now(
         CoreConstants.DATE_TIME_ZONE
     )
 

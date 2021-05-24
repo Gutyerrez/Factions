@@ -27,6 +27,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
       - name: Build project
         run: ./gradlew shadowJar
   deploy:
@@ -34,6 +36,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Deploy project
+        run: ./gradlew publish
       - name: Deploy project to remote servers
         uses: hyrendev/scp-action@0.1-ALPHA
         with:

@@ -1,9 +1,7 @@
 package net.hyren.factions.misc.utils
 
-import com.google.common.collect.Sets
 import net.hyren.core.shared.CoreConstants
 import net.hyren.core.shared.misc.kotlin.sizedArray
-import net.hyren.core.shared.misc.utils.ChatColor
 import net.hyren.core.spigot.misc.utils.DirectionUtils
 import net.hyren.factions.FactionsConstants
 import net.hyren.factions.FactionsProvider
@@ -40,9 +38,7 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
     val maxChunkX = locationChunkX + 9
     val maxChunkZ = locationChunkZ + 9
 
-    val lands = Sets.newTreeSet<FactionLand> { o1, o2 ->
-        o2.landType.color.code.compareTo(o1.landType.color.code)
-    }
+    val lands = mutableListOf<FactionLand>()
 
     var colors: Array<Array<FactionLand>> = Array<Array<FactionLand>>(19) {
         sizedArray<FactionLand>(19)
@@ -110,6 +106,8 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
         BlockFace.WEST -> colors = rotateToRight(colors, 3)
     }
 
+    val landTypeIterator = LandType.values().filter { it != LandType.CONTESTED }.iterator()
+
     return ComponentBuilder()
         .append("\n")
         .append { componentBuilder, _ ->
@@ -120,76 +118,89 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
                     componentBuilder.append(factionLand.landType.color.toString()).append(FactionsConstants.Symbols.CUBE.toString())
                 }
 
-                if (y == 2) {
-                    componentBuilder.append("  ").append(
-                        "${
-                            if (direction == BlockFace.NORTH_WEST) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }
-                        }"
-                    ).append("\\").append(
-                        "${
-                            if (direction == BlockFace.NORTH) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }
-                        }"
-                    ).append("N").append(
-                        "${
-                            if (direction == BlockFace.NORTH_EAST) {
-                                "§c§l"
-                            } else {
-                                "§6"
-                            }
-                        }"
-                    ).append("/")
-                } else if (y == 3) {
-                    componentBuilder.append("  ").append(
+                when (y) {
+                    2 -> {
+                        componentBuilder.append("  ").append(
                             "${
-                                if (direction == BlockFace.WEST) {
+                                if (direction == BlockFace.NORTH_WEST) {
                                     "§c§l"
                                 } else {
                                     "§6"
                                 }
                             }"
-                        ).append("O").append("§6§l+").append(
+                        ).append("\\").append(
                             "${
-                                if (direction == BlockFace.EAST) {
+                                if (direction == BlockFace.NORTH) {
                                     "§c§l"
                                 } else {
                                     "§6"
                                 }
                             }"
-                        ).append("L")
-                } else if (y == 4) {
-                    componentBuilder.append("  ")
-                        .append("${if (direction == BlockFace.SOUTH_EAST) {
-                            "§c§l"
-                        } else {
-                            "§6"
-                        }}")
-                        .append("/")
-                        .append("${if (direction == BlockFace.SOUTH) {
-                            "§c§l"
-                        } else {
-                            "§6"
-                        }}")
-                        .append("S")
-                        .append("${if (direction == BlockFace.SOUTH_WEST) {
-                            "§c§l"
-                        } else {
-                            "§6"
-                        }}")
-                        .append("\\")
-                } else if (y >= 7) {
-                    LandType.values().filter { it != LandType.CONTESTED }.forEach {
-                        componentBuilder.append("  ")
-                            .append("${it.color}")
-                            .append(FactionsConstants.Symbols.CUBE.toString())
-                            .append("${ChatColor.WHITE} ${it.displayName}")
+                        ).append("N").append(
+                            "${
+                                if (direction == BlockFace.NORTH_EAST) {
+                                    "§c§l"
+                                } else {
+                                    "§6"
+                                }
+                            }"
+                        ).append("/")
+                    }
+                    3 -> {
+                        componentBuilder.append("  ").append(
+                                "${
+                                    if (direction == BlockFace.WEST) {
+                                        "§c§l"
+                                    } else {
+                                        "§6"
+                                    }
+                                }"
+                            ).append("O").append("§6§l+").append(
+                                "${
+                                    if (direction == BlockFace.EAST) {
+                                        "§c§l"
+                                    } else {
+                                        "§6"
+                                    }
+                                }"
+                            ).append("L")
+                    }
+                    4 -> {
+                        componentBuilder.append("  ").append(
+                                "${
+                                    if (direction == BlockFace.SOUTH_EAST) {
+                                        "§c§l"
+                                    } else {
+                                        "§6"
+                                    }
+                                }"
+                            ).append("/").append(
+                                "${
+                                    if (direction == BlockFace.SOUTH) {
+                                        "§c§l"
+                                    } else {
+                                        "§6"
+                                    }
+                                }"
+                            ).append("S").append(
+                                "${
+                                    if (direction == BlockFace.SOUTH_WEST) {
+                                        "§c§l"
+                                    } else {
+                                        "§6"
+                                    }
+                                }"
+                            ).append("\\")
+                    }
+                    7, 8, 9, 10, 11, 12, 13, 14 ,15 ,16, 17, 18 -> {
+                        if (landTypeIterator.hasNext()) {
+                            val landType = landTypeIterator.next()
+
+                            componentBuilder.append("  ")
+                                .append("${landType.color}")
+                                .append(FactionsConstants.Symbols.CUBE.toString())
+                                .append("§f ${landType.displayName}")
+                        }
                     }
                 }
 

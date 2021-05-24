@@ -27,7 +27,7 @@ class FactionInfoCommand : CustomCommand("info") {
         args: Array<out String>
     ): Boolean {
         val faction = if (args.size == 1) {
-            FactionsProvider.Cache.Local.FACTION.provide().fetchByName(args[0])
+            FactionsProvider.Cache.Local.FACTION.provide().fetchByTag(args[0])
         } else {
             FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id)?.faction ?: commandSender.sendMessage(
                 usage

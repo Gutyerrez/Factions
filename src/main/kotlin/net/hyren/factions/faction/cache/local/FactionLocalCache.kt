@@ -48,8 +48,12 @@ class FactionLocalCache : LocalCache {
         }
 
     fun fetchById(factionId: EntityID<UUID>?) = if (factionId == null) {
+        println("Id nullo")
+
         null
     } else {
+        println("DALE")
+
         CACHE_BY_ID.get(factionId)
     }
 

@@ -35,6 +35,8 @@ class FactionUserDAO(
     fun toFactionUser(): FactionUser = FactionUser(
         CoreProvider.Cache.Local.USERS.provide().fetchById(this.id)!!
     ).apply {
+        println("Faction ID: ${this@FactionUserDAO.factionId?.value}")
+
         this.role = this@FactionUserDAO.role
         this.factionId = this@FactionUserDAO.factionId
         this.power = this@FactionUserDAO.power

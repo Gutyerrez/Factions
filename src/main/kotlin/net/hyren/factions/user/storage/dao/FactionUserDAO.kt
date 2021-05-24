@@ -37,20 +37,22 @@ class FactionUserDAO(
     ).apply {
         println("Faction ID: ${this@FactionUserDAO.factionId?.value}")
 
-        this.role = this@FactionUserDAO.role
-        this.factionId = this@FactionUserDAO.factionId
-        this.power = this@FactionUserDAO.power
-        this.maxPower = this@FactionUserDAO.maxPower
-        this.enemyKills = this@FactionUserDAO.enemyKills
-        this.neutralKills = this@FactionUserDAO.neutralKills
-        this.civilianKills = this@FactionUserDAO.civilianKills
-        this.enemyDeaths = this@FactionUserDAO.enemyDeaths
-        this.neutralDeaths = this@FactionUserDAO.neutralDeaths
-        this.civilianDeaths = this@FactionUserDAO.civilianDeaths
-        this.mapAutoUpdating = this@FactionUserDAO.mapAutoUpdating
-        this.seeingChunks = this@FactionUserDAO.seeingChunks
-        this.createdAt = this@FactionUserDAO.createdAt
-        this.updatedAt = this@FactionUserDAO.updatedAt
+        this@FactionUserDAO.also {
+            role = it.role
+            factionId = it.factionId
+            power = it.power
+            maxPower = it.maxPower
+            enemyKills = it.enemyKills
+            neutralKills = it.neutralKills
+            civilianKills = it.civilianKills
+            enemyDeaths = it.enemyDeaths
+            neutralDeaths = it.neutralDeaths
+            civilianDeaths = it.civilianDeaths
+            mapAutoUpdating = it.mapAutoUpdating
+            seeingChunks = it.seeingChunks
+            createdAt = it.createdAt
+            updatedAt = it.updatedAt
+        }
     }
 
 }

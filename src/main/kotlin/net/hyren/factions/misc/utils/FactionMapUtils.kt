@@ -124,9 +124,7 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
 
                 when (y) {
                     2 -> {
-                        componentBuilder.append("${ChatColor.GOLD}")
-                            .append("${ChatColor.BOLD}")
-                            .append("  ")
+                        componentBuilder.append("  ")
                             .append("${if (direction == BlockFace.NORTH_WEST) {
                                 ChatColor.RED
                             } else {
@@ -147,9 +145,7 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
                             .append("/")
                     }
                     3 -> {
-                        componentBuilder.append("${ChatColor.GOLD}")
-                            .append("${ChatColor.BOLD}")
-                            .append("  ")
+                        componentBuilder.append("  ")
                             .append("${if (direction == BlockFace.WEST) {
                                 ChatColor.RED
                             } else {
@@ -165,9 +161,7 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
                             .append("L")
                     }
                     4 -> {
-                        componentBuilder.append("${ChatColor.GOLD}")
-                            .append("${ChatColor.BOLD}")
-                            .append("  ")
+                        componentBuilder.append("  ")
                             .append("${if (direction == BlockFace.SOUTH_EAST) {
                                 ChatColor.RED
                             } else {

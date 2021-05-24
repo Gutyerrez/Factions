@@ -2,7 +2,6 @@ package net.hyren.factions.commands.subcommands
 
 import net.hyren.core.shared.CoreConstants
 import net.hyren.core.shared.CoreProvider
-import net.hyren.core.shared.commands.argument.Argument
 import net.hyren.core.shared.groups.Group
 import net.hyren.core.shared.misc.utils.DateFormatter
 import net.hyren.core.shared.misc.utils.DefaultMessage
@@ -21,10 +20,6 @@ class FactionProfileCommand : CustomCommand("perfil") {
 
     override fun getParent() = FactionCommand()
 
-    override fun getArguments() = listOf(
-        Argument("usuário")
-    )
-
     override fun onCommand(
         commandSender: CommandSender,
         user: User?,
@@ -35,12 +30,16 @@ class FactionProfileCommand : CustomCommand("perfil") {
                 DefaultMessage.USER_NOT_FOUND
             )
 
+            println("asd")
+
             return false
         } else {
             FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id) ?: throw NullPointerException(
                 "faction user is null"
             )
         }
+
+        println("opa")
 
         commandSender.sendMessage(
             ComponentBuilder()
@@ -54,7 +53,7 @@ class FactionProfileCommand : CustomCommand("perfil") {
                 }")
                 .append("\n")
                 .append { componentBuilder, _ ->
-                    if (user!!.hasGroup(Group.MANAGER)) {
+                    if (user.hasGroup(Group.MANAGER)) {
                         componentBuilder.append("§fID do usuário: §7${factionUser.getUniqueId()}")
                     }
 

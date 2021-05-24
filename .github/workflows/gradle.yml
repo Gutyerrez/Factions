@@ -1,0 +1,53 @@
+on:
+  push:
+    branches:
+      - main
+
+env:
+  MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+  MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Clean project
+        run: ./gradlew clean
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build project
+        run: ./gradlew shadowJar
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy project to remote servers
+        uses: hyrendev/scp-action@0.1-ALPHA
+        with:
+          files: |
+            [
+              "build/libs/factions.jar"
+            ]
+          remote: /home/cloud/output/
+          servers: |
+            [
+              {
+                "host": "${{ secrets.DEDICATED_1_HOST_ADDRESS }}",
+                "port": "${{ secrets.DEDICATED_PORT }}",
+                "user": "${{ secrets.DEDICATED_USER }}",
+                "private_key": "${{ secrets.DEDICATED_SSH_KEY }}"
+              }
+            ]

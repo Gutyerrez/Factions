@@ -37,8 +37,8 @@ class FactionUserLocalCache : LocalCache {
             )
         }
 
-    fun fetchByUserId(userId: EntityID<UUID>) = CACHE_BY_ID.get(userId) ?: factionUser@ {
-        return@factionUser CoreProvider.Cache.Local.USERS.provide().fetchById(userId)?.let {
+    fun fetchByUserId(userId: EntityID<UUID>) = CACHE_BY_ID.get(userId) ?: {
+        CoreProvider.Cache.Local.USERS.provide().fetchById(userId)?.let {
             println("UserById: ${it.getConnectedBukkitApplication()?.server}")
             println("Current server: ${CoreProvider.application.server}")
 
@@ -46,15 +46,15 @@ class FactionUserLocalCache : LocalCache {
                 return@let FactionUser(it)
             } else return@let null
         }
-    }
+    }.invoke()
 
     fun fetchByUserId(userId: UUID) = CACHE_BY_ID.get(
         EntityID(
             userId,
             UsersTable
         )
-    ) ?: factionUser@ {
-        return@factionUser CoreProvider.Cache.Local.USERS.provide().fetchById(EntityID(userId, UsersTable))?.let {
+    ) ?: {
+        CoreProvider.Cache.Local.USERS.provide().fetchById(EntityID(userId, UsersTable))?.let {
             println("UserById ²: ${it.getConnectedBukkitApplication()?.server}")
             println("Current server ²: ${CoreProvider.application.server}")
 
@@ -62,10 +62,10 @@ class FactionUserLocalCache : LocalCache {
                 return@let FactionUser(it)
             } else return@let null
         }
-    }
+    }.invoke()
 
-    fun fetchByUserName(userName: String) = CACHE_BY_NAME.get(userName) ?: factionUser@ {
-        return@factionUser CoreProvider.Cache.Local.USERS.provide().fetchByName(userName)?.let {
+    fun fetchByUserName(userName: String) = CACHE_BY_NAME.get(userName) ?: {
+        CoreProvider.Cache.Local.USERS.provide().fetchByName(userName)?.let {
             println("UserByName: ${it.getConnectedBukkitApplication()?.server}")
             println("Current server: ${CoreProvider.application.server}")
 
@@ -73,7 +73,7 @@ class FactionUserLocalCache : LocalCache {
                 return@let FactionUser(it)
             } else return@let null
         }
-    }
+    }.invoke()
 
     fun refresh(factionUser: FactionUser) {
         CACHE_BY_ID.refresh(factionUser.id)

@@ -8,7 +8,9 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.jetbrains.exposed.dao.id.EntityID
 import org.joda.time.DateTime
+import java.math.RoundingMode
 import java.util.*
+import kotlin.math.roundToInt
 
 /**
  * @author Gutyerrez
@@ -41,6 +43,9 @@ data class FactionUser(val user: User) : User(
 
     var power: Double = 0.0
     var maxPower: Double = 0.0
+
+    val powerRounded = power.roundToInt()
+    val maxPowerRounded = maxPower.roundToInt()
 
     // Kills by default = 0
 
@@ -75,6 +80,12 @@ data class FactionUser(val user: User) : User(
     fun getReceivedInvites() = FactionsProvider.Cache.Local.FACTION_INVITES.provide().fetchByFactionUserId(id)
 
     fun getPlayer(): Player? = Bukkit.getPlayer(getUniqueId())
+
+    fun getTotalKills() = enemyKills + civilianDeaths + neutralKills
+
+    fun getTotalDeaths() = enemyDeaths + civilianDeaths + neutralDeaths
+
+    fun getKDR() = (getTotalKills() / getTotalDeaths()).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
 
     fun hasFaction() = factionId != null
 

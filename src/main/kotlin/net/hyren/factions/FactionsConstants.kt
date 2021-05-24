@@ -61,3 +61,5 @@ val DefaultMessage.ALREADY_HAVE_FACTION get() = TextComponent("§cEste usuário 
 val DefaultMessage.FACTION_IS_NECESSARY_TO_EXECUTE_THIS_COMMAND get() = TextComponent("§cÉ necessário pertencer a uma facção para executar este comando.")
 
 val DefaultMessage.FACTION_NOT_FOUND get() = TextComponent("§cEsta facção não existe.")
+
+val DefaultMessage.YOU_DONT_HAVE_FACTION get() = TextComponent("§cVocê não pertence a uma facção.")

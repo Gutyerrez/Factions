@@ -1,18 +1,13 @@
 package net.hyren.factions.commands.subcommands
 
-import net.hyren.core.shared.CoreProvider
-import net.hyren.core.shared.commands.Commandable
 import net.hyren.core.shared.groups.Group
 import net.hyren.core.shared.users.data.User
 import net.hyren.core.spigot.command.CustomCommand
 import net.hyren.factions.FactionsConstants
 import net.hyren.factions.FactionsProvider
 import net.hyren.factions.commands.FactionCommand
-import net.hyren.factions.user.data.FactionUser
 import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ComponentBuilder
-import net.md_5.bungee.api.chat.TextComponent
-import org.apache.commons.lang3.StringUtils
 import org.bukkit.command.CommandSender
 
 /**
@@ -22,7 +17,7 @@ class FactionInfoCommand : CustomCommand("info") {
 
     override fun getParent() = FactionCommand()
 
-    override fun getUsage0() = ComponentBuilder(
+    override fun getUsage0(): Array<BaseComponent> = ComponentBuilder(
         "§cUtilize /f info <tag>."
     ).create()
 
@@ -31,19 +26,16 @@ class FactionInfoCommand : CustomCommand("info") {
         user: User?,
         args: Array<out String>
     ): Boolean {
-        val factionUser = if (args.size == 1) {
-            FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserName(args[0]) ?: throw NullPointerException(
-                "faction user is null"
-            )
+        val faction = if (args.size == 1) {
+            FactionsProvider.Cache.Local.FACTION.provide().fetchByName(args[0])
         } else {
-            FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id) ?: throw NullPointerException(
-                "faction user is null"
+            FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id)?.faction ?: commandSender.sendMessage(
+                usage
             )
+            return false
         }
 
-        return if (factionUser.hasFaction()) {
-            val faction = factionUser.faction!!
-
+        return if (faction != null) {
             commandSender.sendMessage(
                 ComponentBuilder()
                     .append("                    §e${faction.tag} - ${faction.name}")
@@ -110,13 +102,8 @@ class FactionInfoCommand : CustomCommand("info") {
                     .create()
             )
             true
-        } else if (factionUser.id == user!!.id) {
-            commandSender.sendMessage(usage)
-            false
         } else {
-            commandSender.sendMessage(
-                TextComponent("§cEsse usuário não possui uma facção.")
-            )
+            commandSender.sendMessage(getUsage())
             false
         }
     }

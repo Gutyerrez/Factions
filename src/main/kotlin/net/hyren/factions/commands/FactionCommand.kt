@@ -22,7 +22,8 @@ class FactionCommand : CustomCommand("f") {
         FactionMapCommand(),
         FactionInviteCommand(),
         FactionInviteAddCommand(),
-        FactionInfoCommand()
+        FactionInfoCommand(),
+        FactionProfileCommand()
     )
 
     override fun onCommand(

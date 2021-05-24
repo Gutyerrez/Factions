@@ -68,7 +68,13 @@ class FactionInfoCommand : CustomCommand("info") {
                         }.forEachIndexed { index, factionUser ->
                             componentBuilder.append("${
                                 if (factionUser.isOnline()) "§a" else "§7"
-                            }${FactionsConstants.Symbols.BLACK_CIRCLE} ${factionUser.role?.prefix}${factionUser.name}")
+                            }${FactionsConstants.Symbols.BLACK_CIRCLE} ${factionUser.role?.prefix}${factionUser.name}${
+                                if (index + 1 < faction.getUsersCount()) {
+                                    "§7, "
+                                } else {
+                                    ""
+                                }
+                            }")
 
                             if (index % 3 == 0) {
                                 componentBuilder.append("\n")
@@ -77,7 +83,6 @@ class FactionInfoCommand : CustomCommand("info") {
 
                         componentBuilder
                     }
-                    .append("\n")
                     .append("§2KDR: §7${faction.getKDR()}")
                     .append("\n")
                     .append("§2Abates: §7${faction.getTotalKills()} §8[Inimigo: §7${

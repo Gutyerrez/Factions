@@ -39,9 +39,6 @@ class FactionUserLocalCache : LocalCache {
 
     fun fetchByUserId(userId: EntityID<UUID>) = CACHE_BY_ID.get(userId) ?: {
         CoreProvider.Cache.Local.USERS.provide().fetchById(userId)?.let {
-            println("UserById: ${it.getConnectedBukkitApplication()?.server}")
-            println("Current server: ${CoreProvider.application.server}")
-
             if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
                 return@let FactionUser(it)
             } else return@let null
@@ -55,9 +52,6 @@ class FactionUserLocalCache : LocalCache {
         )
     ) ?: {
         CoreProvider.Cache.Local.USERS.provide().fetchById(EntityID(userId, UsersTable))?.let {
-            println("UserById ²: ${it.getConnectedBukkitApplication()?.server}")
-            println("Current server ²: ${CoreProvider.application.server}")
-
             if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
                 return@let FactionUser(it)
             } else return@let null
@@ -66,9 +60,6 @@ class FactionUserLocalCache : LocalCache {
 
     fun fetchByUserName(userName: String) = CACHE_BY_NAME.get(userName) ?: {
         CoreProvider.Cache.Local.USERS.provide().fetchByName(userName)?.let {
-            println("UserByName: ${it.getConnectedBukkitApplication()?.server}")
-            println("Current server: ${CoreProvider.application.server}")
-
             if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
                 return@let FactionUser(it)
             } else return@let null

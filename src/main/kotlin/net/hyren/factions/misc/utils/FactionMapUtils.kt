@@ -209,8 +209,8 @@ internal fun rotateToRight(
         sizedArray<FactionLand>(array.size)
     }
 
-    for (x in 0..array.size) {
-        for (z in 0..array.size) {
+    for (x in 0..(array.size - 1)) {
+        for (z in 0..(array.size - 1)) {
             _array[z][(array.size - 1) - x] = array[x][z]
         }
     }

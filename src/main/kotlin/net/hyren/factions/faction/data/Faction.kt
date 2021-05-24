@@ -81,7 +81,9 @@ data class Faction(
         it.enemyDeaths + it.neutralDeaths + it.civilianDeaths
     }
 
-    fun getKDR() = (getTotalKills() / getTotalDeaths()).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
+    fun getKDR() = (getTotalKills() / if (getTotalDeaths() == 0) {
+        1
+    } else { getTotalDeaths() }).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
 
     fun hasInvited(factionUser: FactionUser) = getSentInvites().any { it.factionUserId == factionUser.id }
 

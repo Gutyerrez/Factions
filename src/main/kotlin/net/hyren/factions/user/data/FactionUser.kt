@@ -87,9 +87,7 @@ data class FactionUser(val user: User) : User(
 
     fun getKDR() = (getTotalKills() / if (getTotalDeaths() == 0) {
         1
-    } else {
-        getTotalDeaths()
-    }).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
+    } else { getTotalDeaths() }).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
 
     fun hasFaction() = factionId != null
 

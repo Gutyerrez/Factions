@@ -12,6 +12,7 @@ import net.hyren.factions.user.data.FactionUser
 import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.block.BlockFace
 import org.jetbrains.exposed.dao.id.EntityID
 import org.joda.time.DateTime
@@ -115,90 +116,88 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
                 for (x in 0..18) {
                     val factionLand = colors[x][y]
 
-                    componentBuilder.append(factionLand.landType.color.toString()).append(FactionsConstants.Symbols.CUBE.toString())
+                    componentBuilder.append("${
+                        factionLand.landType.color
+                    }${
+                        ChatColor.BOLD
+                    }${
+                        FactionsConstants.Symbols.CUBE
+                    }")
                 }
 
                 when (y) {
                     2 -> {
-                        componentBuilder.append("  ").append(
-                            "${
+                        componentBuilder.append("  ")
+                            .append("${
                                 if (direction == BlockFace.NORTH_WEST) {
                                     "§c§l"
                                 } else {
                                     "§6"
                                 }
-                            }"
-                        ).append("\\").append(
-                            "${
+                            }\\")
+                            .append("${
                                 if (direction == BlockFace.NORTH) {
                                     "§c§l"
                                 } else {
                                     "§6"
                                 }
-                            }"
-                        ).append("N").append(
-                            "${
+                            }N")
+                            .append("${
                                 if (direction == BlockFace.NORTH_EAST) {
                                     "§c§l"
                                 } else {
                                     "§6"
                                 }
-                            }"
-                        ).append("/")
+                            }/")
                     }
                     3 -> {
-                        componentBuilder.append("  ").append(
-                                "${
-                                    if (direction == BlockFace.WEST) {
-                                        "§c§l"
-                                    } else {
-                                        "§6"
-                                    }
-                                }"
-                            ).append("O").append("§6§l+").append(
-                                "${
-                                    if (direction == BlockFace.EAST) {
-                                        "§c§l"
-                                    } else {
-                                        "§6"
-                                    }
-                                }"
-                            ).append("L")
+                        componentBuilder.append("  ")
+                            .append("${
+                                if (direction == BlockFace.WEST) {
+                                    "§c§l"
+                                } else {
+                                    "§6"
+                                }
+                            }O")
+                            .append("§6§l+")
+                            .append("${
+                                if (direction == BlockFace.EAST) {
+                                    "§c§l"
+                                } else {
+                                    "§6"
+                                }
+                            }L")
                     }
                     4 -> {
-                        componentBuilder.append("  ").append(
-                                "${
-                                    if (direction == BlockFace.SOUTH_EAST) {
-                                        "§c§l"
-                                    } else {
-                                        "§6"
-                                    }
-                                }"
-                            ).append("/").append(
-                                "${
-                                    if (direction == BlockFace.SOUTH) {
-                                        "§c§l"
-                                    } else {
-                                        "§6"
-                                    }
-                                }"
-                            ).append("S").append(
-                                "${
-                                    if (direction == BlockFace.SOUTH_WEST) {
-                                        "§c§l"
-                                    } else {
-                                        "§6"
-                                    }
-                                }"
-                            ).append("\\")
+                        componentBuilder.append("  ")
+                            .append("${
+                                if (direction == BlockFace.SOUTH_EAST) {
+                                    "§c§l"
+                                } else {
+                                    "§6"
+                                }
+                            }/")
+                            .append("${
+                                if (direction == BlockFace.SOUTH) {
+                                    "§c§l"
+                                } else {
+                                    "§6"
+                                }
+                            }S")
+                            .append("${
+                                if (direction == BlockFace.SOUTH_WEST) {
+                                    "§c§l"
+                                } else {
+                                    "§6"
+                                }
+                            }\\")
                     }
                     7, 8, 9, 10, 11, 12, 13, 14 ,15 ,16, 17, 18 -> {
                         if (landTypeIterator.hasNext()) {
                             val landType = landTypeIterator.next()
 
                             componentBuilder.append("  ")
-                                .append("${landType.color}")
-                                .append(FactionsConstants.Symbols.CUBE.toString())
+                                .append("${landType.color} ${FactionsConstants.Symbols.CUBE}")
                                 .append("§f ${landType.displayName}")
                         }
                     }

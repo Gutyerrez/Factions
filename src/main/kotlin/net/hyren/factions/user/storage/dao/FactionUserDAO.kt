@@ -33,7 +33,7 @@ class FactionUserDAO(
     var updatedAt by FactionsUsersTable.updatedAt
 
     fun toFactionUser(): FactionUser = FactionUser(
-        CoreProvider.Cache.Local.USERS.provide().fetchById(this.id)!!
+        CoreProvider.Cache.Local.USERS.provide().fetchById(id)!!
     ).apply {
         println("Faction ID: ${this@FactionUserDAO.factionId?.value}")
 

@@ -42,7 +42,9 @@ class FactionUserLocalCache : LocalCache {
         if (user == null) {
             null
         } else FactionUser(user)
-    } else null
+    } else {
+        null
+    }
 
     fun fetchByUserId(userId: UUID) = if (CACHE_BY_ID.get(
         EntityID(
@@ -55,7 +57,9 @@ class FactionUserLocalCache : LocalCache {
         if (user == null) {
             null
         } else FactionUser(user)
-    } else null
+    } else {
+        null
+    }
 
     fun fetchByUserName(userName: String) = if (CACHE_BY_NAME.get(userName) == null) {
         val user = CoreProvider.Cache.Local.USERS.provide().fetchByName(userName)
@@ -63,7 +67,9 @@ class FactionUserLocalCache : LocalCache {
         if (user == null) {
             null
         } else FactionUser(user)
-    } else null
+    } else {
+        null
+    }
 
     fun refresh(factionUser: FactionUser) {
         CACHE_BY_ID.refresh(factionUser.id)

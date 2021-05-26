@@ -75,14 +75,14 @@ data class FactionUser(
     user.updatedAt
 ) {
 
-    val faction = if (factionId != null) {
+    fun getFaction() = if (factionId != null) {
         FactionsProvider.Cache.Local.FACTION.provide().fetchById(factionId!!)
     } else {
         null
     }
 
-    val factionName = faction?.name
-    val factionTag = faction?.tag
+    val factionName = getFaction()?.name
+    val factionTag = getFaction()?.tag
 
     // Player List
     lateinit var playerList: PlayerList
@@ -100,7 +100,7 @@ data class FactionUser(
             playerList.update(0, "§e§lMINHA FACÇÃO")
             playerList.update(1, "§e[$factionTag] $factionName")
 
-            faction?.getUsers()?.forEachIndexed { index, factionUser ->
+            getFaction()?.getUsers()?.forEachIndexed { index, factionUser ->
                 val index = index + 3
 
                 playerList.update(index, "${

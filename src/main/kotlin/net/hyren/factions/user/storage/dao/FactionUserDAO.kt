@@ -3,8 +3,7 @@ package net.hyren.factions.user.storage.dao
 import net.hyren.core.shared.CoreProvider
 import net.hyren.factions.user.data.FactionUser
 import net.hyren.factions.user.storage.table.FactionsUsersTable
-import org.jetbrains.exposed.dao.UUIDEntity
-import org.jetbrains.exposed.dao.UUIDEntityClass
+import org.jetbrains.exposed.dao.*
 import org.jetbrains.exposed.dao.id.EntityID
 import java.util.*
 
@@ -32,7 +31,7 @@ class FactionUserDAO(
     var createdAt by FactionsUsersTable.createdAt
     var updatedAt by FactionsUsersTable.updatedAt
 
-    fun toFactionUser(): FactionUser = FactionUser(
+    fun toFactionUser() = FactionUser(
         CoreProvider.Cache.Local.USERS.provide().fetchById(id)!!,
         role,
         factionId,

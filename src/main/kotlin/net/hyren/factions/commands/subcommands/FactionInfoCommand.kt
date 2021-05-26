@@ -3,11 +3,9 @@ package net.hyren.factions.commands.subcommands
 import net.hyren.core.shared.groups.Group
 import net.hyren.core.shared.users.data.User
 import net.hyren.core.spigot.command.CustomCommand
-import net.hyren.factions.FactionsConstants
-import net.hyren.factions.FactionsProvider
+import net.hyren.factions.*
 import net.hyren.factions.commands.FactionCommand
-import net.md_5.bungee.api.chat.BaseComponent
-import net.md_5.bungee.api.chat.ComponentBuilder
+import net.md_5.bungee.api.chat.*
 import org.bukkit.command.CommandSender
 
 /**
@@ -29,7 +27,7 @@ class FactionInfoCommand : CustomCommand("info") {
         val faction = if (args.size == 1) {
             FactionsProvider.Cache.Local.FACTION.provide().fetchByTag(args[0])
         } else {
-            val faction = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id)?.faction
+            val faction = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id)?.getFaction()
 
             if (faction == null) {
                 commandSender.sendMessage(usage)

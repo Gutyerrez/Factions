@@ -105,9 +105,9 @@ class FactionCreateCommand : CustomCommand("criar") {
             UpdateFactionUserDTO(
                 user.id
             ) {
-                this.factionId = faction.id
-                this.role = Role.LEADER
-                this.updatedAt = DateTime.now(
+                it.factionId = faction.id
+                it.role = Role.LEADER
+                it.updatedAt = DateTime.now(
                     CoreConstants.DATE_TIME_ZONE
                 )
             }

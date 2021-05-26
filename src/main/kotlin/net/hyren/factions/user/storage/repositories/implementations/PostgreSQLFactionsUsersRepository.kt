@@ -49,6 +49,8 @@ class PostgreSQLFactionsUsersRepository : IFactionsUsersRepository {
         FactionUserDAO.new(createFactionUserDTO.userId.value) {
             power = createFactionUserDTO.power
             maxPower = createFactionUserDTO.maxPower
+
+            createFactionUserDTO.execute(this)
         }.toFactionUser()
     }
 
@@ -61,7 +63,8 @@ class PostgreSQLFactionsUsersRepository : IFactionsUsersRepository {
             updateFactionUserDTO.update.invoke(this)
         }?.toFactionUser() ?: create(
             CreateFactionUserDTO(
-                updateFactionUserDTO.userId
+                updateFactionUserDTO.userId,
+                execute = updateFactionUserDTO.update
             )
         )
     }

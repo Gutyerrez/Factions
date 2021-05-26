@@ -23,10 +23,11 @@ open class FetchFactionUsersByFactionIdDTO(
 open class CreateFactionUserDTO(
     val userId: EntityID<UUID>,
     val power: Double = FactionsConstants.FactionUser.DEFAULT_FACTION_USER_POWER,
-    val maxPower: Double = FactionsConstants.FactionUser.DEFAULT_FACTION_USER_MAX_POWER
+    val maxPower: Double = FactionsConstants.FactionUser.DEFAULT_FACTION_USER_MAX_POWER,
+    val execute: (FactionUserDAO) -> Unit = { /* nothing */ }
 )
 
 open class UpdateFactionUserDTO(
     val userId: EntityID<UUID>,
-    val update: FactionUserDAO.() -> Unit
+    val update: (FactionUserDAO) -> Unit
 )

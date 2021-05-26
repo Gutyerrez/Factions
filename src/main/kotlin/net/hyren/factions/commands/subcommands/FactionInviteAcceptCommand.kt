@@ -1,21 +1,6 @@
 package net.hyren.factions.commands.subcommands
 
-import net.hyren.core.shared.CoreConstants
-import net.hyren.core.shared.CoreProvider
-import net.hyren.core.shared.commands.argument.Argument
-import net.hyren.core.shared.groups.Group
-import net.hyren.core.shared.misc.utils.DefaultMessage
-import net.hyren.core.shared.users.data.User
-import net.hyren.core.spigot.command.CustomCommand
-import net.hyren.factions.FACTION_NOT_FOUND
-import net.hyren.factions.FactionsConstants
-import net.hyren.factions.FactionsProvider
-import net.hyren.factions.YOU_ALREADY_HAVE_FACTION
-import net.hyren.factions.echo.packet.FactionUserInviteAcceptedEchoPacket
-import net.hyren.factions.user.storage.dto.UpdateFactionUserDTO
-import net.md_5.bungee.api.chat.TextComponent
-import org.bukkit.command.CommandSender
-import org.joda.time.DateTime
+import net.hyren.core.shared.CoreConstantsimport net.hyren.core.shared.CoreProviderimport net.hyren.core.shared.commands.argument.Argumentimport net.hyren.core.shared.misc.utils.DefaultMessageimport net.hyren.core.shared.users.data.Userimport net.hyren.core.spigot.command.CustomCommandimport net.hyren.factions.FACTION_NOT_FOUNDimport net.hyren.factions.FactionsConstantsimport net.hyren.factions.FactionsProviderimport net.hyren.factions.YOU_ALREADY_HAVE_FACTIONimport net.hyren.factions.echo.packet.FactionUserInviteAcceptedEchoPacketimport net.hyren.factions.user.storage.dto.UpdateFactionUserDTOimport net.md_5.bungee.api.chat.TextComponentimport org.bukkit.command.CommandSenderimport org.joda.time.DateTime
 
 /**
  * @author Gutyerrez
@@ -77,9 +62,9 @@ class FactionInviteAcceptCommand : CustomCommand("aceitar") {
             UpdateFactionUserDTO(
                 factionUser.id
             ) {
-                this.factionId = faction.id
-                this.role = FactionsConstants.Faction.DEFAULT_ROLE
-                this.updatedAt = DateTime.now(
+                it.factionId = faction.id
+                it.role = FactionsConstants.Faction.DEFAULT_ROLE
+                it.updatedAt = DateTime.now(
                     CoreConstants.DATE_TIME_ZONE
                 )
             }

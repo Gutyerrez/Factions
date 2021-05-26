@@ -77,7 +77,9 @@ data class FactionUser(
 
     val faction = if (factionId != null) {
         FactionsProvider.Cache.Local.FACTION.provide().fetchById(factionId!!)
-    } else null
+    } else {
+        null
+    }
 
     val factionName = faction?.name
     val factionTag = faction?.tag

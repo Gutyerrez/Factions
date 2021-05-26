@@ -1,13 +1,6 @@
 package net.hyren.factions.commands
 
-import net.hyren.core.shared.CoreProvider
-import net.hyren.core.shared.commands.restriction.CommandRestriction
-import net.hyren.core.shared.users.data.User
-import net.hyren.core.spigot.command.CustomCommand
-import net.hyren.factions.FactionsProvider
-import net.hyren.factions.commands.subcommands.*
-import net.hyren.factions.user.data.FactionUser
-import org.bukkit.command.CommandSender
+import net.hyren.core.shared.commands.restriction.CommandRestrictionimport net.hyren.core.shared.users.data.Userimport net.hyren.core.spigot.command.CustomCommandimport net.hyren.factions.FactionsProviderimport net.hyren.factions.commands.subcommands.*import org.bukkit.command.CommandSender
 
 /**
  * @author Gutyerrez
@@ -21,9 +14,9 @@ class FactionCommand : CustomCommand("f") {
         FactionDisbandCommand(),
         FactionMapCommand(),
         FactionInviteCommand(),
-        FactionInviteAddCommand(),
         FactionInfoCommand(),
-        FactionProfileCommand()
+        FactionProfileCommand(),
+        FactionInviteAddCommand()
     )
 
     override fun onCommand(
@@ -45,13 +38,7 @@ class FactionCommand : CustomCommand("f") {
                     }
                 }
                 else -> {
-                    val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserName(args[0])?.let {
-                        return@let CoreProvider.Cache.Local.USERS.provide().fetchByName(args[0])?.let factionUser@{
-                            if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
-                                return@factionUser FactionUser(it) {}
-                            } else return@factionUser null
-                        }
-                    }
+                    val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserName(args[0])
 
                     if (factionUser == null) {
                         commandSender.sendMessage("Usuário existe.")

@@ -73,7 +73,7 @@ class FactionInviteAddCommand : CustomCommand("convidar"), FactionNeededCommandR
 
                 commandSender.sendMessage(
                     ComponentBuilder()
-                        .append("§aVocê convidou ${targetFactionUser.getFancyName()} §apara sua facção.")
+                        .append("§aVocê convidou o jogador ${targetFactionUser.getFancyName()} §apara sua facção.")
                         .append("\n")
                         .append("§aPara remover o convite clique ")
                         .append("§c§lAQUI")

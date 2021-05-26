@@ -75,15 +75,6 @@ data class FactionUser(
     user.updatedAt
 ) {
 
-    fun getFaction() = if (factionId != null) {
-        FactionsProvider.Cache.Local.FACTION.provide().fetchById(factionId!!)
-    } else {
-        null
-    }
-
-    val factionName = getFaction()?.name
-    val factionTag = getFaction()?.tag
-
     // Player List
     lateinit var playerList: PlayerList
 
@@ -98,7 +89,7 @@ data class FactionUser(
 
         if (hasFaction()) {
             playerList.update(0, "§e§lMINHA FACÇÃO")
-            playerList.update(1, "§e[$factionTag] $factionName")
+            playerList.update(1, "§e[${getFactionTag()}] ${getFactionName()}")
 
             getFaction()?.getUsers()?.forEachIndexed { index, factionUser ->
                 val index = index + 3
@@ -113,6 +104,16 @@ data class FactionUser(
             }
         }
     }
+
+    fun getFaction() = if (factionId != null) {
+        FactionsProvider.Cache.Local.FACTION.provide().fetchById(factionId!!)
+    } else {
+        null
+    }
+
+    fun getFactionName() = getFaction()?.name
+
+    fun getFactionTag() = getFaction()?.tag
 
     fun getReceivedInvites() = FactionsProvider.Cache.Local.FACTION_INVITES.provide().fetchByFactionUserId(id)
 

@@ -2,8 +2,7 @@ package net.hyren.factions.faction.data
 
 import net.hyren.core.shared.CoreProvider
 import net.hyren.core.shared.world.location.SerializedLocation
-import net.hyren.factions.FactionsConstants
-import net.hyren.factions.FactionsProvider
+import net.hyren.factions.*
 import net.hyren.factions.user.data.FactionUser
 import net.hyren.factions.user.role.Role
 import org.bukkit.Bukkit
@@ -28,15 +27,17 @@ data class Faction(
     var updatedAt: DateTime? = null
 ) {
 
-    val power = getUsers().sumOf { it.power }
-    val maxPower = getUsers().sumOf { it.maxPower }
-
-    val powerRounded = power.roundToInt()
-    val maxPowerRounded = maxPower.roundToInt()
-
     var maxUsers = FactionsConstants.Faction.MAX_USERS
 
     val fullyQualifiedName = "[$tag] - $name"
+
+    fun getPower() = getUsers().sumOf { it.power }
+
+    fun getMaxPower() = getUsers().sumOf { it.maxPower }
+
+    fun getPowerRounded() = getPower().roundToInt()
+
+    fun getMaxPowerRounded() = getMaxPower().roundToInt()
 
     fun getLeader() = getUsers().first { it.role == Role.LEADER }
 

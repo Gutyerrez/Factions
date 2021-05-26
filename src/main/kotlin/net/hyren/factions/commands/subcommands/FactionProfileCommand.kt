@@ -1,10 +1,8 @@
 package net.hyren.factions.commands.subcommands
 
-import net.hyren.core.shared.CoreConstants
-import net.hyren.core.shared.CoreProvider
+import net.hyren.core.shared.*
 import net.hyren.core.shared.groups.Group
-import net.hyren.core.shared.misc.utils.DateFormatter
-import net.hyren.core.shared.misc.utils.DefaultMessage
+import net.hyren.core.shared.misc.utils.*
 import net.hyren.core.shared.users.data.User
 import net.hyren.core.spigot.command.CustomCommand
 import net.hyren.factions.FactionsProvider
@@ -45,7 +43,7 @@ class FactionProfileCommand : CustomCommand("perfil") {
                 .append("\n")
                 .append("                    ${factionUser.getHighestGroup(CoreProvider.application.server).prefix}§e${
                     if (factionUser.hasFaction()) {
-                        factionUser.role?.prefix + factionUser.factionTag + " " + factionUser.name
+                        factionUser.role?.prefix + factionUser.getFactionTag() + " " + factionUser.name
                     } else {
                         factionUser.name
                     }
@@ -63,7 +61,7 @@ class FactionProfileCommand : CustomCommand("perfil") {
                 .append("\n")
                 .append("§fFacção: §7${
                     if (factionUser.hasFaction()) {
-                        factionUser.factionName
+                        factionUser.getFactionName()
                     } else {
                         "Nenhuma."
                     }

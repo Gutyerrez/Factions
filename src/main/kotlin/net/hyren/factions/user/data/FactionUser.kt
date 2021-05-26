@@ -90,6 +90,7 @@ data class FactionUser(
         if (hasFaction()) {
             playerList.update(0, "§e§lMINHA FACÇÃO")
             playerList.update(1, "§e[${getFactionTag()}] ${getFactionName()}")
+            playerList.update(2, "§1§2§3§4§5§6§7§8")
 
             getFaction()?.getUsers()?.forEachIndexed { index, factionUser ->
                 val index = index + 3

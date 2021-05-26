@@ -48,7 +48,7 @@ class FactionInfoCommand : CustomCommand("info") {
                         "§2ID da facção: §7${faction.id.value}"
                     } else "")
                     .append("\n")
-                    .append("§2Terras/Poder/Poder máximo: §7${
+                    .append("§2Terras/§4Poder§2/§4Poder máximo§2: §7${
                         faction.getLands().size
                     }/${
                         faction.powerRounded

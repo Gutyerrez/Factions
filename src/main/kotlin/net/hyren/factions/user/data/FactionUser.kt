@@ -1,10 +1,8 @@
 package net.hyren.factions.user.data
 
-import net.hyren.core.shared.CoreConstants
-import net.hyren.core.shared.CoreProvider
+import net.hyren.core.shared.*
 import net.hyren.core.shared.users.data.User
-import net.hyren.factions.FactionsConstants
-import net.hyren.factions.FactionsProvider
+import net.hyren.factions.*
 import net.hyren.factions.alpha.misc.player.list.data.PlayerList
 import net.hyren.factions.user.role.Role
 import org.bukkit.Bukkit
@@ -77,22 +75,7 @@ data class FactionUser(
     user.updatedAt
 ) {
 
-    val faction = run {
-        println(role)
-        println(factionId)
-        println(power)
-        println(maxPower)
-        println(enemyKills)
-        println(neutralKills)
-        println(civilianKills)
-        println(enemyDeaths)
-        println(neutralDeaths)
-        println(civilianDeaths)
-        println(mapAutoUpdating)
-        println(seeingChunks)
-
-        FactionsProvider.Cache.Local.FACTION.provide().fetchById(factionId)
-    }
+    val faction = FactionsProvider.Cache.Local.FACTION.provide().fetchById(factionId)
 
     val factionName = faction?.name
     val factionTag = faction?.tag

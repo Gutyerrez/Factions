@@ -20,7 +20,47 @@ import kotlin.math.roundToInt
  */
 data class FactionUser(
     val user: User,
-    val data: (FactionUser) -> Unit
+
+    // Current faction role if don't have a faction this can be null
+
+    var role: Role? = null,
+
+    // Current faction if don't have a faction this can be null
+
+    var factionId: EntityID<UUID>? = null,
+
+    // Power
+
+    var power: Double = 0.0,
+    var maxPower: Double = 0.0,
+
+    val powerRounded: Int = power.roundToInt(),
+    val maxPowerRounded: Int = maxPower.roundToInt(),
+
+    // Kills by default = 0
+
+    var enemyKills: Int = 0,
+    var neutralKills: Int = 0,
+    var civilianKills: Int = 0,
+
+    // Deaths by default = 0
+
+    var enemyDeaths: Int = 0,
+    var neutralDeaths: Int = 0,
+    var civilianDeaths: Int = 0,
+
+    // Settings
+
+    var mapAutoUpdating: Boolean = false,
+    var seeingChunks: Boolean = false,
+
+    // Timestamps
+
+    override var createdAt: DateTime = DateTime.now(
+        CoreConstants.DATE_TIME_ZONE
+    ),
+
+    override var updatedAt: DateTime? = null
 ) : User(
     user.id,
     user.name,
@@ -36,49 +76,6 @@ data class FactionUser(
     user.createdAt,
     user.updatedAt
 ) {
-
-    init { data(this) }
-
-    // Current faction role if don't have a faction this can be null
-
-    var role: Role? = null
-
-    // Current faction if don't have a faction this can be null
-
-    var factionId: EntityID<UUID>? = null
-
-    // Power
-
-    var power: Double = 0.0
-    var maxPower: Double = 0.0
-
-    val powerRounded = power.roundToInt()
-    val maxPowerRounded = maxPower.roundToInt()
-
-    // Kills by default = 0
-
-    var enemyKills: Int = 0
-    var neutralKills: Int = 0
-    var civilianKills: Int = 0
-
-    // Deaths by default = 0
-
-    var enemyDeaths: Int = 0
-    var neutralDeaths: Int = 0
-    var civilianDeaths: Int = 0
-
-    // Settings
-
-    var mapAutoUpdating: Boolean = false
-    var seeingChunks: Boolean = false
-
-    // Timestamps
-
-    override var createdAt: DateTime = DateTime.now(
-        CoreConstants.DATE_TIME_ZONE
-    )
-
-    override var updatedAt: DateTime? = null
 
     val faction = run {
         println(role)

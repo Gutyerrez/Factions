@@ -33,26 +33,21 @@ class FactionUserDAO(
     var updatedAt by FactionsUsersTable.updatedAt
 
     fun toFactionUser(): FactionUser = FactionUser(
-        CoreProvider.Cache.Local.USERS.provide().fetchById(id)!!
-    ) {
-        println("Faction ID: ${this@FactionUserDAO.factionId?.value}")
-
-        it.role = role
-        it.factionId = factionId
-        it.power = power
-        it.maxPower = maxPower
-        it.enemyKills = enemyKills
-        it.neutralKills = neutralKills
-        it.civilianKills = civilianKills
-        it.enemyDeaths = enemyDeaths
-        it.neutralDeaths = neutralDeaths
-        it.civilianDeaths = civilianDeaths
-        it.mapAutoUpdating = mapAutoUpdating
-        it.seeingChunks = seeingChunks
-        it.createdAt = createdAt
-        it.updatedAt = updatedAt
-
-        println("User Faction ID: ${it.factionId?.value}")
-    }
+        CoreProvider.Cache.Local.USERS.provide().fetchById(id)!!,
+        role,
+        factionId,
+        power,
+        maxPower,
+        enemyKills = enemyKills,
+        neutralKills = neutralKills,
+        civilianKills = civilianKills,
+        enemyDeaths = enemyDeaths,
+        neutralDeaths = neutralDeaths,
+        civilianDeaths = civilianDeaths,
+        mapAutoUpdating = mapAutoUpdating,
+        seeingChunks = seeingChunks,
+        createdAt = createdAt,
+        updatedAt = updatedAt
+    )
 
 }

@@ -40,7 +40,7 @@ class FactionUserLocalCache : LocalCache {
     fun fetchByUserId(userId: EntityID<UUID>) = CACHE_BY_ID.get(userId) ?: {
         CoreProvider.Cache.Local.USERS.provide().fetchById(userId)?.let {
             if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
-                return@let FactionUser(it) {}
+                return@let FactionUser(it)
             } else return@let null
         }
     }.invoke()
@@ -53,7 +53,7 @@ class FactionUserLocalCache : LocalCache {
     ) ?: {
         CoreProvider.Cache.Local.USERS.provide().fetchById(EntityID(userId, UsersTable))?.let {
             if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
-                return@let FactionUser(it) {}
+                return@let FactionUser(it)
             } else return@let null
         }
     }.invoke()
@@ -61,7 +61,7 @@ class FactionUserLocalCache : LocalCache {
     fun fetchByUserName(userName: String) = CACHE_BY_NAME.get(userName) ?: {
         CoreProvider.Cache.Local.USERS.provide().fetchByName(userName)?.let {
             if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
-                return@let FactionUser(it) {}
+                return@let FactionUser(it)
             } else return@let null
         }
     }.invoke()

@@ -120,7 +120,7 @@ class FactionCreateCommand : CustomCommand("criar") {
         )
 
         commandSender.sendMessage(
-            TextComponent("§eYAY! Sua facção foi criada com sucesso!")
+            TextComponent("§aSua facção foi criada com sucesso!")
         )
         return true
     }

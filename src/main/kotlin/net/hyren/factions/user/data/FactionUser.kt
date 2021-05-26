@@ -20,7 +20,7 @@ import kotlin.math.roundToInt
  */
 data class FactionUser(
     val user: User,
-    val function: (FactionUser) -> Unit
+    val data: (FactionUser) -> Unit
 ) : User(
     user.id,
     user.name,
@@ -36,6 +36,8 @@ data class FactionUser(
     user.createdAt,
     user.updatedAt
 ) {
+
+    init { data(this) }
 
     // Current faction role if don't have a faction this can be null
 
@@ -78,7 +80,22 @@ data class FactionUser(
 
     override var updatedAt: DateTime? = null
 
-    val faction = FactionsProvider.Cache.Local.FACTION.provide().fetchById(factionId)
+    val faction = run {
+        println(role)
+        println(factionId)
+        println(power)
+        println(maxPower)
+        println(enemyKills)
+        println(neutralKills)
+        println(civilianKills)
+        println(enemyDeaths)
+        println(neutralDeaths)
+        println(civilianDeaths)
+        println(mapAutoUpdating)
+        println(seeingChunks)
+
+        FactionsProvider.Cache.Local.FACTION.provide().fetchById(factionId)
+    }
 
     val factionName = faction?.name
     val factionTag = faction?.tag

@@ -43,7 +43,7 @@ class FactionUserLocalCache : LocalCache {
             null
         } else FactionUser(user)
     } else {
-        null
+        CACHE_BY_ID.get(userId)
     }
 
     fun fetchByUserId(userId: UUID) = if (CACHE_BY_ID.get(
@@ -58,7 +58,12 @@ class FactionUserLocalCache : LocalCache {
             null
         } else FactionUser(user)
     } else {
-        null
+        CACHE_BY_ID.get(
+            EntityID(
+                userId,
+                UsersTable
+            )
+        )
     }
 
     fun fetchByUserName(userName: String) = if (CACHE_BY_NAME.get(userName) == null) {
@@ -68,7 +73,7 @@ class FactionUserLocalCache : LocalCache {
             null
         } else FactionUser(user)
     } else {
-        null
+        CACHE_BY_NAME.get(userName)
     }
 
     fun refresh(factionUser: FactionUser) {

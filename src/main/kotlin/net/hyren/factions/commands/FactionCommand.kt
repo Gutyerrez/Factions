@@ -48,7 +48,7 @@ class FactionCommand : CustomCommand("f") {
                     val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserName(args[0])?.let {
                         return@let CoreProvider.Cache.Local.USERS.provide().fetchByName(args[0])?.let factionUser@{
                             if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
-                                return@factionUser FactionUser(it)
+                                return@factionUser FactionUser(it) {}
                             } else return@factionUser null
                         }
                     }

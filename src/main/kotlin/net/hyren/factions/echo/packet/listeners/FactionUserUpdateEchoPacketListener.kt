@@ -14,9 +14,13 @@ class FactionUserUpdateEchoPacketListener : EchoPacketListener {
     fun on(
         packet: FactionUserUpdateEchoPacket
     ) {
-        val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)!!
+        var factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)!!
 
         FactionsProvider.Cache.Local.FACTION_USER.provide().refresh(factionUser)
+
+        factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)!!
+
+        factionUser.updatePlayerList()
     }
 
 }

@@ -28,6 +28,8 @@ class FactionUserInviteAcceptedEchoPacketListener : EchoPacketListener {
                 TextComponent("§aO usuário ${factionUser.getFancyName()} §aé o mais novo membro da facção.")
             )
         }
+
+        factionUser.updatePlayerList()
     }
 
 }

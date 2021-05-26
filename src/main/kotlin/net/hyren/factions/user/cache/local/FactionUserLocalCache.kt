@@ -6,8 +6,7 @@ import net.hyren.core.shared.cache.local.LocalCache
 import net.hyren.core.shared.users.storage.table.UsersTable
 import net.hyren.factions.FactionsProvider
 import net.hyren.factions.user.data.FactionUser
-import net.hyren.factions.user.storage.dto.FetchFactionUserByUserIdDTO
-import net.hyren.factions.user.storage.dto.FetchFactionUserByUserNameDTO
+import net.hyren.factions.user.storage.dto.*
 import org.jetbrains.exposed.dao.id.EntityID
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -37,34 +36,34 @@ class FactionUserLocalCache : LocalCache {
             )
         }
 
-    fun fetchByUserId(userId: EntityID<UUID>) = CACHE_BY_ID.get(userId) ?: {
-        CoreProvider.Cache.Local.USERS.provide().fetchById(userId)?.let {
-            if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
-                return@let FactionUser(it)
-            } else return@let null
-        }
-    }.invoke()
+    fun fetchByUserId(userId: EntityID<UUID>) = if (CACHE_BY_ID.get(userId) == null) {
+        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(userId)
 
-    fun fetchByUserId(userId: UUID) = CACHE_BY_ID.get(
+        if (user == null) {
+            null
+        } else FactionUser(user)
+    } else null
+
+    fun fetchByUserId(userId: UUID) = if (CACHE_BY_ID.get(
         EntityID(
             userId,
             UsersTable
         )
-    ) ?: {
-        CoreProvider.Cache.Local.USERS.provide().fetchById(EntityID(userId, UsersTable))?.let {
-            if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
-                return@let FactionUser(it)
-            } else return@let null
-        }
-    }.invoke()
+    ) == null) {
+        val user = CoreProvider.Cache.Local.USERS.provide().fetchById(userId)
 
-    fun fetchByUserName(userName: String) = CACHE_BY_NAME.get(userName) ?: {
-        CoreProvider.Cache.Local.USERS.provide().fetchByName(userName)?.let {
-            if (it.getConnectedBukkitApplication()?.server == CoreProvider.application.server) {
-                return@let FactionUser(it)
-            } else return@let null
-        }
-    }.invoke()
+        if (user == null) {
+            null
+        } else FactionUser(user)
+    } else null
+
+    fun fetchByUserName(userName: String) = if (CACHE_BY_NAME.get(userName) == null) {
+        val user = CoreProvider.Cache.Local.USERS.provide().fetchByName(userName)
+
+        if (user == null) {
+            null
+        } else FactionUser(user)
+    } else null
 
     fun refresh(factionUser: FactionUser) {
         CACHE_BY_ID.refresh(factionUser.id)

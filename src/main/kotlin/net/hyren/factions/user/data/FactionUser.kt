@@ -90,14 +90,6 @@ data class FactionUser(
             throw UninitializedPropertyAccessException("PlayerList variable is not initialized")
         }
 
-        var index = 0
-
-        do {
-            playerList.update(index, "§1")
-
-            index++
-        } while (index != 80)
-
         // 0 - 19
 
         playerList.update(0, "§e§lMINHA FACÇÃO")
@@ -105,8 +97,10 @@ data class FactionUser(
         if (hasFaction()) {
             playerList.update(1, "§e[${getFactionTag()}] ${getFactionName()}")
 
-            getFaction()?.getUsers()?.forEachIndexed { index, factionUser ->
-                val index = index + 3
+            var index = 3
+
+            getFaction()?.getUsers()?.forEachIndexed { _index, factionUser ->
+                index = index + _index
 
                 playerList.update(index, "${
                     if (factionUser.isOnline()) {
@@ -119,27 +113,50 @@ data class FactionUser(
                 }${factionUser.role?.prefix + factionUser.name}")
             }
 
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 19)
+
             // 20 - 39
+
+            var index = 20
+
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 39)
 
             // allies
         } else {
             // 40 - 59
             playerList.update(40, "§e§lSTAFF ONLINE")
 
+            var index = 42
+
             CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByServer(
                 CoreProvider.application.server!!
             ).map { CoreProvider.Cache.Local.USERS.provide().fetchById(it) }.filter {
                 it != null && it.hasGroup(Group.HELPER)
-            }.forEachIndexed { index, user ->
-                val index = index + 42
+            }.forEachIndexed { _index, user ->
+                index = index + _index
 
                 playerList.update(index, user?.getHighestGroup()?.getColoredPrefix() + user?.name)
             }
+
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 59)
         }
 
         // later
 
         // 60 - 79
+
         playerList.update(60, "§e§lMINHAS INFORMAÇÕES")
         playerList.update(62, "§fCoins: §a0.00")
         playerList.update(63, "§fCash: §a0.00")
@@ -155,6 +172,14 @@ data class FactionUser(
         playerList.update(74, "§f Mineração: §a0 §7(0/1020)")
         playerList.update(75, "§f Reparação: §a0 §7(0/1020)")
         playerList.update(76, "§f Espadas: §a0 §7(0/1020)")
+
+        var index = 77
+
+        do {
+            playerList.update(index, "§1")
+
+            index++
+        } while (index != 59)
     }
 
     fun getFaction() = if (factionId != null) {

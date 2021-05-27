@@ -95,7 +95,7 @@ data class FactionUser(
 
         if (hasFaction()) {
             playerList.update(1, "§e[${getFactionTag()}] ${getFactionName()}")
-            playerList.update(2, "§1")
+            playerList.update(2, "§0")
 
             index = 3
 
@@ -134,7 +134,7 @@ data class FactionUser(
             playerList.update(25, "§econvidar outra facção")
             playerList.update(26, "§ede confiança para ser")
             playerList.update(27, "§ea sua aliada.")
-            playerList.update(28, "§0")
+            playerList.update(28, "§2")
             playerList.update(29, "§eGerencie as permissões")
             playerList.update(30, "§eda sua facção aliada")
             playerList.update(31, "§eusando o comando")
@@ -148,25 +148,25 @@ data class FactionUser(
                 index++
             } while (index != 40)
 
-            playerList.update(41, "§e§lINFORMAÇÕES ${getFactionTag()}")
-            playerList.update(42, "§0")
-            playerList.update(43, "§fTerras: §a0")
-            playerList.update(44, "§fMembros: §a0/0")
-            playerList.update(45, "§fPoder: §a0/0")
-            playerList.update(46, "§aKDR: §a0/0")
-            playerList.update(47, "Líder: §aGutyerrez")
-            playerList.update(48, "§0")
-            playerList.update(49, "§a${FactionsConstants.Symbols.TINY_TRIANGLE_UP} Abates:")
-            playerList.update(50, "§f Civil: §70")
-            playerList.update(51, "§f Neutro: §70")
-            playerList.update(52, "§f Inimigo: §70")
-            playerList.update(53, "§0")
-            playerList.update(54, "§c${FactionsConstants.Symbols.TINY_TRIANGLE_DOWN} Mortes:")
-            playerList.update(55, "§f Civil: §70")
-            playerList.update(56, "§f Neutro: §70")
-            playerList.update(57, "§f Inimigo: §70")
+            playerList.update(42, "§e§lINFORMAÇÕES ${getFactionTag()}")
+            playerList.update(43, "§3")
+            playerList.update(44, "§fTerras: §a0")
+            playerList.update(45, "§fMembros: §a0/0")
+            playerList.update(46, "§fPoder: §a0/0")
+            playerList.update(47, "§aKDR: §a0/0")
+            playerList.update(48, "Líder: §aGutyerrez")
+            playerList.update(49, "§4")
+            playerList.update(50, "§a${FactionsConstants.Symbols.TINY_TRIANGLE_UP} Abates:")
+            playerList.update(51, "§f Civil: §70")
+            playerList.update(52, "§f Neutro: §70")
+            playerList.update(53, "§f Inimigo: §70")
+            playerList.update(54, "§5")
+            playerList.update(55, "§c${FactionsConstants.Symbols.TINY_TRIANGLE_DOWN} Mortes:")
+            playerList.update(56, "§f Civil: §70")
+            playerList.update(57, "§f Neutro: §70")
+            playerList.update(58, "§f Inimigo: §70")
 
-            index = 56
+            index = 59
 
             do {
                 playerList.update(index, "§0")
@@ -209,10 +209,12 @@ data class FactionUser(
         // 60 - 79
 
         playerList.update(60, "§e§lMINHAS INFORMAÇÕES")
+        playerList.update(61, "§5")
         playerList.update(62, "§fCoins: §a0.00")
         playerList.update(63, "§fCash: §a0.00")
         playerList.update(64, "§fPoder: §a${getPowerRounded()}")
         playerList.update(65, "§fKDR: §a${getKDR()}")
+        playerList.update(66, "§6")
         playerList.update(67, "§eHabilidades:")
         playerList.update(68, "§f Acrobacia: §a0 §7(0/1020)")
         playerList.update(69, "§f Alquimia: §a0 §7(0/1020)")

@@ -1,7 +1,6 @@
 package net.hyren.factions.echo.packet
 
-import net.hyren.core.shared.echo.api.buffer.EchoBufferInput
-import net.hyren.core.shared.echo.api.buffer.EchoBufferOutput
+import net.hyren.core.shared.echo.api.buffer.*
 import net.hyren.core.shared.echo.api.packets.EchoPacket
 import org.jetbrains.exposed.dao.id.EntityID
 import java.util.*
@@ -9,7 +8,7 @@ import java.util.*
 /**
  * @author Gutyerrez
  */
-class FactionUserUpdateEchoPacket(
+class FactionUserUpdatedEchoPacket(
     var factionUserId: EntityID<UUID>? = null,
 ) : EchoPacket() {
 

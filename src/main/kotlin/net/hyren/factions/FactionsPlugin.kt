@@ -37,7 +37,7 @@ class FactionsPlugin : CustomPlugin() {
 
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(FactionUserInvitedEchoPacketListener())
         CoreProvider.Databases.Redis.ECHO.provide().registerListener(FactionUserInviteAcceptedEchoPacketListener())
-        CoreProvider.Databases.Redis.ECHO.provide().registerListener(FactionUserUpdateEchoPacketListener())
+        CoreProvider.Databases.Redis.ECHO.provide().registerListener(FactionUserUpdatedEchoPacketListener())
     }
 
 }

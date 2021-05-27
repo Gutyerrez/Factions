@@ -1,21 +1,16 @@
 package net.hyren.factions.commands.subcommands
 
-import net.hyren.core.shared.CoreConstants
-import net.hyren.core.shared.CoreProvider
+import net.hyren.core.shared.*
 import net.hyren.core.shared.misc.utils.DefaultMessage
 import net.hyren.core.shared.users.data.User
 import net.hyren.core.spigot.command.CustomCommand
-import net.hyren.factions.FactionsConstants
-import net.hyren.factions.FactionsProvider
-import net.hyren.factions.YOU_ALREADY_HAVE_FACTION
+import net.hyren.factions.*
 import net.hyren.factions.commands.FactionCommand
-import net.hyren.factions.echo.packet.FactionUserUpdateEchoPacket
+import net.hyren.factions.echo.packet.FactionUserUpdatedEchoPacket
 import net.hyren.factions.faction.storage.dto.CreateFactionDTO
 import net.hyren.factions.user.role.Role
 import net.hyren.factions.user.storage.dto.UpdateFactionUserDTO
-import net.md_5.bungee.api.chat.BaseComponent
-import net.md_5.bungee.api.chat.ComponentBuilder
-import net.md_5.bungee.api.chat.TextComponent
+import net.md_5.bungee.api.chat.*
 import org.bukkit.command.CommandSender
 import org.joda.time.DateTime
 
@@ -114,7 +109,7 @@ class FactionCreateCommand : CustomCommand("criar") {
         )
 
         CoreProvider.Databases.Redis.ECHO.provide().publishToCurrentServer(
-            FactionUserUpdateEchoPacket(
+            FactionUserUpdatedEchoPacket(
                 factionUser.id
             )
         )

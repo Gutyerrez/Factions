@@ -1,14 +1,13 @@
 package net.hyren.factions.commands.subcommands
 
 import net.hyren.core.shared.CoreProvider
-import net.hyren.core.shared.commands.Commandable
 import net.hyren.core.shared.users.data.User
 import net.hyren.core.spigot.command.CustomCommand
 import net.hyren.factions.FactionsProvider
 import net.hyren.factions.commands.FactionCommand
 import net.hyren.factions.commands.restriction.FactionNeededCommandRestrictable
+import net.hyren.factions.echo.packet.FactionUserUpdatedEchoPacket
 import net.hyren.factions.faction.storage.dto.DeleteFactionDTO
-import net.hyren.factions.user.data.FactionUser
 import org.bukkit.command.CommandSender
 
 /**
@@ -35,6 +34,12 @@ class FactionDisbandCommand : CustomCommand("desfazer"), FactionNeededCommandRes
                 )
             )
         ) {
+            CoreProvider.Databases.Redis.ECHO.provide().publishToCurrentServer(
+                FactionUserUpdatedEchoPacket(
+                    factionUser.id
+                )
+            )
+
             commandSender.sendMessage("Facção desfeita!")
             true
         } else {

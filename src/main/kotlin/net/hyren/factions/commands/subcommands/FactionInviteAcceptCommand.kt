@@ -11,6 +11,7 @@ import net.hyren.factions.FactionsConstants
 import net.hyren.factions.FactionsProvider
 import net.hyren.factions.YOU_ALREADY_HAVE_FACTION
 import net.hyren.factions.echo.packet.FactionUserInviteAcceptedEchoPacket
+import net.hyren.factions.misc.player.list.updatePlayerList
 import net.hyren.factions.user.storage.dto.UpdateFactionUserDTO
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.command.CommandSender
@@ -84,9 +85,11 @@ class FactionInviteAcceptCommand : CustomCommand("aceitar") {
             }
         )
 
-        // Refresh cache
-        FactionsProvider.Cache.Local.FACTION_USER.provide().refresh(factionUser)
-        FactionsProvider.Cache.Local.FACTION_INVITES.provide().refresh(factionUser)
+        CoreProvider.Databases.Redis.ECHO.provide().publishToCurrentServer(
+            FactionUserUpdatedEchoPacket(
+                factionUser.id
+            )
+        )
 
         commandSender.sendMessage(
             TextComponent("§aVocê juntou-se a facção ${faction.fullyQualifiedName}")

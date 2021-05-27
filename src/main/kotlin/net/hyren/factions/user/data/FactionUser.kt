@@ -90,7 +90,9 @@ data class FactionUser(
             throw UninitializedPropertyAccessException("PlayerList variable is not initialized")
         }
 
-        playerList.update(0, "§e§lMINHA FACÇÃO") // 0 - 19
+        // 0 - 19
+
+        playerList.update(0, "§e§lMINHA FACÇÃO")
 
         if (hasFaction()) {
             playerList.update(1, "§e[${getFactionTag()}] ${getFactionName()}")
@@ -110,8 +112,27 @@ data class FactionUser(
                     factionUser.getHighestGroup(CoreProvider.application.server).getColoredPrefix() 
                 }${factionUser.role?.prefix + factionUser.name}")
             }
+
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 19)
+
+            // 20 - 39
+
+            index++
+
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 39)
+
+            // allies
         } else {
-            playerList.update(40, "§e§lSTAFF ONLINE" ) // 40 - 59
+            // 40 - 59
+            playerList.update(40, "§e§lSTAFF ONLINE")
 
             var index = 42
 
@@ -124,7 +145,17 @@ data class FactionUser(
 
                 playerList.update(index, user?.getHighestGroup()?.getColoredPrefix() + user?.name)
             }
+
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 59)
         }
+
+        // later
+
+        // 60 - 79
 
         playerList.update(60, "§e§lMINHAS INFORMAÇÕES")
         playerList.update(62, "§fCoins: §a0.00")
@@ -141,6 +172,14 @@ data class FactionUser(
         playerList.update(74, "§f Mineração: §a0 §7(0/1020)")
         playerList.update(75, "§f Reparação: §a0 §7(0/1020)")
         playerList.update(76, "§f Espadas: §a0 §7(0/1020)")
+
+        var index = 77
+
+        do {
+            playerList.update(index, "§1")
+
+            index++
+        } while (index != 59)
     }
 
     fun getFaction() = if (factionId != null) {

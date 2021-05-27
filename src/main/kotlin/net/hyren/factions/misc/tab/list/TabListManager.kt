@@ -22,8 +22,12 @@ object TabListManager {
             val player = Bukkit.getPlayer(it.value)
 
             if (player == null) {
+                println("Null")
+
                 null
             } else {
+                println("Cria")
+
                 PlayerList(player)
             }
         }
@@ -40,6 +44,8 @@ object TabListManager {
 }
 
 fun FactionUser.updatePlayerList() {
+    println("Update")
+
     val playerList = TabListManager.fetchByUserId(id)!!
 
     var index by Delegates.notNull<Int>()

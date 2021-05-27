@@ -96,6 +96,7 @@ data class FactionUser(
 
         if (hasFaction()) {
             playerList.update(1, "§e[${getFactionTag()}] ${getFactionName()}")
+            playerList.update(2, "§1")
 
             var index = 3
 
@@ -121,7 +122,26 @@ data class FactionUser(
 
             // 20 - 39
 
-            index++
+            playerList.update(20, "§e§lALIANÇA")
+            playerList.update(21, "§eSem ${
+                if (FactionsConstants.Faction.MAX_ALLIES > 1) {
+                    "alidos"
+                } else {
+                    "alido"
+                }
+            }.")
+            playerList.update(22, "§1")
+            playerList.update(23, "§eUse §f/f aliança §epara")
+            playerList.update(24, "§econvidar outra facção")
+            playerList.update(25, "§ede confiança para ser")
+            playerList.update(26, "§ea sua aliada.")
+            playerList.update(27, "§0")
+            playerList.update(28, "§eGerencie as permissões")
+            playerList.update(29, "§eda sua facção aliada")
+            playerList.update(30, "§eusando o comando")
+            playerList.update(31, "§f/f permissões.")
+
+            index = 32
 
             do {
                 playerList.update(index, "§1")
@@ -179,7 +199,7 @@ data class FactionUser(
             playerList.update(index, "§1")
 
             index++
-        } while (index != 59)
+        } while (index != 79)
     }
 
     fun getFaction() = if (factionId != null) {

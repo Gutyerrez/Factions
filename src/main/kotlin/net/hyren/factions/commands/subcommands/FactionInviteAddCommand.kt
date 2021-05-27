@@ -57,8 +57,8 @@ class FactionInviteAddCommand : CustomCommand("convidar"), FactionNeededCommandR
             false -> {
                 val factionInvite = FactionsProvider.Repositories.PostgreSQL.FACTIONS_INVITES_REPOSITORY.provide().create(
                     CreateFactionInviteDTO(
-                        factionUser.factionId!!
-                        targetFactionUser.id,
+                        factionUser.factionId!!,
+                        targetFactionUser.id
                     )
                 )
 

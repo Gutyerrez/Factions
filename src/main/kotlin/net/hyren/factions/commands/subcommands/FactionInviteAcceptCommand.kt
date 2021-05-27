@@ -10,7 +10,7 @@ import net.hyren.factions.FACTION_NOT_FOUND
 import net.hyren.factions.FactionsConstants
 import net.hyren.factions.FactionsProvider
 import net.hyren.factions.YOU_ALREADY_HAVE_FACTION
-import net.hyren.factions.echo.packet.FactionUserInviteAcceptedEchoPacket
+import net.hyren.factions.echo.packet.*
 import net.hyren.factions.misc.player.list.updatePlayerList
 import net.hyren.factions.user.storage.dto.UpdateFactionUserDTO
 import net.md_5.bungee.api.chat.TextComponent

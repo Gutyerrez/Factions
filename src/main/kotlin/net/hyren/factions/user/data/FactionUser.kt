@@ -90,7 +90,13 @@ data class FactionUser(
             throw UninitializedPropertyAccessException("PlayerList variable is not initialized")
         }
 
-        for (index in 0..79) { playerList.update(index, "§1") }
+        var index = 0
+
+        do {
+            playerList.update(index, "§1")
+
+            index++
+        } while (index != 80)
 
         // 0 - 19
 

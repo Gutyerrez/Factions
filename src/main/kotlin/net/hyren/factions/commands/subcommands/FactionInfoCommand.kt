@@ -65,8 +65,12 @@ class FactionInfoCommand : CustomCommand("info") {
                             it.isOnline()
                         }.forEachIndexed { index, factionUser ->
                             componentBuilder.append("${
-                                if (factionUser.isOnline()) "§a" else "§7"
-                            }${FactionsConstants.Symbols.BLACK_CIRCLE} ${factionUser.role?.prefix}${factionUser.name}${
+                                if (factionUser.isOnline()) {
+                                    "§a"
+                                } else {
+                                    "§7"
+                                } + factionUser.role?.prefix + factionUser.name
+                            }${
                                 if (index + 1 < faction.getUsersCount()) {
                                     "§7, "
                                 } else {

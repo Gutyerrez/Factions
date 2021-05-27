@@ -83,14 +83,14 @@ data class FactionUser(
         playerList = PlayerList(player)
 
         updatePlayerList()
-
-        for (index in 0..80) { playerList.update(index, "§1") }
     }
 
     fun updatePlayerList() {
         if (!this::playerList.isInitialized) {
             throw UninitializedPropertyAccessException("PlayerList variable is not initialized")
         }
+
+        for (index in 0..80) { playerList.update(index, "§1") }
 
         // 0 - 19
 

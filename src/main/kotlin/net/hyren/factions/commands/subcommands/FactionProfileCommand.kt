@@ -57,7 +57,7 @@ class FactionProfileCommand : CustomCommand("perfil") {
                     componentBuilder
                 }
                 .append("\n")
-                .append("§fPoder: §7${factionUser.powerRounded}/${factionUser.maxPowerRounded}")
+                .append("§fPoder: §7${factionUser.getPowerRounded()}/${factionUser.getMaxPowerRounded()}")
                 .append("\n")
                 .append("§fFacção: §7${
                     if (factionUser.hasFaction()) {

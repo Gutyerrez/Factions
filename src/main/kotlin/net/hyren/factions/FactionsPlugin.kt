@@ -5,6 +5,7 @@ import net.hyren.core.spigot.command.registry.CommandRegistry
 import net.hyren.core.spigot.misc.plugin.CustomPlugin
 import net.hyren.factions.commands.FactionCommand
 import net.hyren.factions.echo.packet.listeners.*
+import net.hyren.factions.listeners.GenericListeners
 import net.hyren.factions.listeners.connection.*
 import org.bukkit.Bukkit
 
@@ -28,8 +29,10 @@ class FactionsPlugin : CustomPlugin() {
          * Bukkit listeners
          */
 
+        pluginManager.registerEvents(GenericListeners(), this)
         pluginManager.registerEvents(PlayerPreLoginListener(), this)
         pluginManager.registerEvents(PlayerJoinListener(), this)
+        pluginManager.registerEvents(PlayerQuitListener(), this)
 
         /**
          * Echo packets

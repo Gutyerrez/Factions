@@ -25,7 +25,7 @@ class PlayerJoinListener : Listener {
         Bukkit.getOnlinePlayers().forEach {
             FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(it.uniqueId)?.let {
                 when {
-                    user.hasGroup(Group.HELPER) -> it.updatePlayerList()
+                    user.hasGroup(Group.HELPER) && !it.hasFaction() -> it.updatePlayerList()
                     it.factionId != null && it.factionId == factionUser?.factionId -> it.updatedAt
                     else -> Unit
                 }

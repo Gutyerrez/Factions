@@ -1,6 +1,7 @@
 package net.hyren.factions.user.data
 
 import net.hyren.core.shared.*
+import net.hyren.core.shared.groups.Group
 import net.hyren.core.shared.users.data.User
 import net.hyren.factions.*
 import net.hyren.factions.alpha.misc.player.list.data.PlayerList
@@ -82,37 +83,72 @@ data class FactionUser(
         playerList = PlayerList(player)
 
         updatePlayerList()
+
+        for (index in 0..80) { playerList.update(index, "§1") }
     }
 
     fun updatePlayerList() {
-        if (!this::playerList.isInitialized) return
+        if (!this::playerList.isInitialized) {
+            throw UninitializedPropertyAccessException("PlayerList variable is not initialized")
+        }
+
+        // 0 - 19
+
+        playerList.update(0, "§e§lMINHA FACÇÃO")
 
         if (hasFaction()) {
-
-            playerList.update(0, "§e§lMINHA FACÇÃO")
             playerList.update(1, "§e[${getFactionTag()}] ${getFactionName()}")
-            playerList.update(2, "§1§2§3§4§5§6§7§8")
 
-            var index = 3
+            getFaction()?.getUsers()?.forEachIndexed { index, factionUser ->
+                val index = index + 3
 
-            getFaction()?.getUsers()?.forEach {
                 playerList.update(index, "${
-                    if (it.isOnline()) {
+                    if (factionUser.isOnline()) {
                         "§a"
                     } else {
                         "§7"
                     }
-                } ${FactionsConstants.Symbols.BLACK_CIRCLE} ${it.role?.prefix + it.name}")
-
-                index++
+                } ${FactionsConstants.Symbols.BLACK_CIRCLE} ${
+                    factionUser.getHighestGroup(CoreProvider.application.server).getColoredPrefix() 
+                }${factionUser.role?.prefix + factionUser.name}")
             }
 
-            do {
-                playerList.update(index, "§1")
+            // 20 - 39
 
-                index++
-            } while (index != 80)
+            // allies
+        } else {
+            // 40 - 59
+            playerList.update(40, "§e§lSTAFF ONLINE")
+
+            CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByServer(
+                CoreProvider.application.server!!
+            ).map { CoreProvider.Cache.Local.USERS.provide().fetchById(it) }.filter {
+                it != null && it.hasGroup(Group.HELPER)
+            }.forEachIndexed { index, user ->
+                val index = index + 42
+
+                playerList.update(index, user?.getHighestGroup()?.getColoredPrefix() + user?.name)
+            }
         }
+
+        // later
+
+        // 60 - 79
+        playerList.update(60, "§e§lMINHAS INFORMAÇÕES")
+        playerList.update(62, "§fCoins: §a0.00")
+        playerList.update(63, "§fCash: §a0.00")
+        playerList.update(64, "§fPoder: §a$powerRounded")
+        playerList.update(65, "§fKDR: §a${getKDR()}")
+        playerList.update(67, "§eHabilidades:")
+        playerList.update(68, "§f Acrobacia: §a0 §7(0/1020)")
+        playerList.update(69, "§f Alquimia: §a0 §7(0/1020)")
+        playerList.update(70, "§f Arqueiro: §a0 §7(0/1020)")
+        playerList.update(71, "§f Machado: §a0 §7(0/1020)")
+        playerList.update(72, "§f Escavação: §a0 §7(0/1020)")
+        playerList.update(73, "§f Herbalismo: §a0 §7(0/1020)")
+        playerList.update(74, "§f Mineração: §a0 §7(0/1020)")
+        playerList.update(75, "§f Reparação: §a0 §7(0/1020)")
+        playerList.update(76, "§f Espadas: §a0 §7(0/1020)")
     }
 
     fun getFaction() = if (factionId != null) {

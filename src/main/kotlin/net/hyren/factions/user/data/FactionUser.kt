@@ -88,21 +88,30 @@ data class FactionUser(
         if (!this::playerList.isInitialized) return
 
         if (hasFaction()) {
+
             playerList.update(0, "§e§lMINHA FACÇÃO")
             playerList.update(1, "§e[${getFactionTag()}] ${getFactionName()}")
             playerList.update(2, "§1§2§3§4§5§6§7§8")
 
-            getFaction()?.getUsers()?.forEachIndexed { index, factionUser ->
-                val index = index + 3
+            var index = 3
 
+            getFaction()?.getUsers()?.forEach {
                 playerList.update(index, "${
-                    if (factionUser.isOnline()) {
+                    if (it.isOnline()) {
                         "§a"
                     } else {
                         "§7"
                     }
-                } ${FactionsConstants.Symbols.BLACK_CIRCLE} ${factionUser.role?.prefix + factionUser.name}")
+                } ${FactionsConstants.Symbols.BLACK_CIRCLE} ${it.role?.prefix + it.name}")
+
+                index++
             }
+
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 80)
         }
     }
 

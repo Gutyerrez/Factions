@@ -1,8 +1,8 @@
 package net.hyren.factions.listeners.connection
 
 import net.hyren.factions.FactionsProvider
-import net.hyren.factions.alpha.misc.player.list.data.PlayerList
 import net.hyren.factions.misc.player.list.updatePlayerList
+import org.bukkit.Bukkit
 import org.bukkit.event.*
 import org.bukkit.event.player.PlayerJoinEvent
 
@@ -15,12 +15,14 @@ class PlayerJoinListener : Listener {
     fun on(
         event: PlayerJoinEvent
     ) {
-        val player = event.player
-
-        PlayerList.hideCommonPlayers(player)
-
-        FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(player.uniqueId)?.let {
-            it.updatePlayerList()
+//        val player = event.player
+//
+//        PlayerList.hideCommonPlayers(player)
+//
+        Bukkit.getOnlinePlayers().forEach {
+            FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(it.uniqueId)?.let {
+                it.updatePlayerList()
+            }
         }
     }
 

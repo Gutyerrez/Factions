@@ -23,6 +23,8 @@ class PlayerJoinListener : Listener {
         val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user.id)
 
         Bukkit.getOnlinePlayers().forEach {
+            PlayerList.hideCommonPlayers(it)
+
             FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(it.uniqueId)?.let {
                 when {
                     user.hasGroup(Group.HELPER) && !it.hasFaction() -> it.updatePlayerList()
@@ -30,13 +32,11 @@ class PlayerJoinListener : Listener {
                     else -> Unit
                 }
             }
-
-            PlayerList.hideCommonPlayers(it)
         }
 
-        factionUser?.updatePlayerList()
-
         PlayerList.hideCommonPlayers(player)
+
+        factionUser?.updatePlayerList()
     }
 
 }

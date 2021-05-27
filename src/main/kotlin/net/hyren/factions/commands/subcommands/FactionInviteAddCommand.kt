@@ -66,7 +66,7 @@ class FactionInviteAddCommand : CustomCommand("convidar"), FactionNeededCommandR
                     targetFactionUser = FactionsProvider.Repositories.PostgreSQL.FACTIONS_USERS_REPOSITORY.provide().update(
                         UpdateFactionUserDTO(
                             targetFactionUser.id
-                        )
+                        ) { /* nothing */ }
                     )
                 }
 
@@ -74,7 +74,7 @@ class FactionInviteAddCommand : CustomCommand("convidar"), FactionNeededCommandR
                     CreateFactionInviteDTO(
                         factionUser.factionId!!,
                         targetFactionUser.id
-                    ) { /* nothing */ }
+                    )
                 )
 
                 CoreProvider.Databases.Redis.ECHO.provide().publishToCurrentServer(

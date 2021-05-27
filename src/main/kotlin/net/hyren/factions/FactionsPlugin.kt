@@ -29,6 +29,7 @@ class FactionsPlugin : CustomPlugin() {
          */
 
         pluginManager.registerEvents(PlayerPreLoginListener(), this)
+        pluginManager.registerEvents(PlayerJoinListener(), this)
 
         /**
          * Echo packets

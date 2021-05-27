@@ -3,6 +3,7 @@ package net.hyren.factions.echo.packet.listeners
 import net.hyren.core.shared.echo.api.listener.EchoPacketListener
 import net.hyren.factions.FactionsProvider
 import net.hyren.factions.echo.packet.FactionUserInviteAcceptedEchoPacket
+import net.hyren.factions.misc.tab.list.updatePlayerList
 import net.md_5.bungee.api.chat.TextComponent
 import org.greenrobot.eventbus.Subscribe
 
@@ -21,15 +22,17 @@ class FactionUserInviteAcceptedEchoPacketListener : EchoPacketListener {
         FactionsProvider.Cache.Local.FACTION_USER.provide().refresh(factionUser)
         FactionsProvider.Cache.Local.FACTION_INVITES.provide().refresh(factionUser)
 
-        factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)!!
+        FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)?.let {
+            faction.getOnlinePlayers()
+                .filter { _factionUser -> _factionUser.uniqueId != it.getUniqueId() }
+                .forEach { player ->
+                    player.sendMessage(
+                        TextComponent("§aO usuário ${it.getFancyName()} §aé o mais novo membro da facção.")
+                    )
+                }
 
-        faction.getOnlinePlayers().filter { it.uniqueId != factionUser.getUniqueId() }.forEach {
-            it.sendMessage(
-                TextComponent("§aO usuário ${factionUser.getFancyName()} §aé o mais novo membro da facção.")
-            )
+            it.updatePlayerList()
         }
-
-        factionUser.updatePlayerList()
     }
 
 }

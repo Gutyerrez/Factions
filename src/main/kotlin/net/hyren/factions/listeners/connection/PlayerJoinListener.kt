@@ -26,13 +26,15 @@ class PlayerJoinListener : Listener {
             FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(it.uniqueId)?.let {
                 when {
                     user.hasGroup(Group.HELPER) -> it.updatePlayerList()
-                    it.hasFaction() && factionUser?.hasFaction() == true && it.factionId == factionUser.factionId -> it.updatedAt
+                    it.factionId != null && it.factionId == factionUser?.factionId -> it.updatedAt
                     else -> Unit
                 }
             }
 
             PlayerList.hideCommonPlayers(it)
         }
+
+        factionUser?.updatePlayerList()
 
         PlayerList.hideCommonPlayers(player)
     }

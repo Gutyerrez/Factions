@@ -33,9 +33,6 @@ data class FactionUser(
     var power: Double = 0.0,
     var maxPower: Double = 0.0,
 
-    val powerRounded: Int = power.roundToInt(),
-    val maxPowerRounded: Int = maxPower.roundToInt(),
-
     // Kills by default = 0
 
     var enemyKills: Int = 0,
@@ -90,6 +87,8 @@ data class FactionUser(
             throw UninitializedPropertyAccessException("PlayerList variable is not initialized")
         }
 
+        var index = 0
+
         // 0 - 19
 
         playerList.update(0, "§e§lMINHA FACÇÃO")
@@ -98,7 +97,7 @@ data class FactionUser(
             playerList.update(1, "§e[${getFactionTag()}] ${getFactionName()}")
             playerList.update(2, "§1")
 
-            var index = 3
+            index = 3
 
             getFaction()?.getUsers()?.forEachIndexed { _index, factionUser ->
                 index = index + _index
@@ -118,30 +117,64 @@ data class FactionUser(
                 playerList.update(index, "§1")
 
                 index++
-            } while (index != 19)
+            } while (index != 20)
 
-            // 20 - 39
+            // 21 - 40
 
-            playerList.update(20, "§e§lALIANÇA")
-            playerList.update(21, "§eSem ${
+            playerList.update(21, "§e§lALIANÇA")
+            playerList.update(22, "§eSem ${
                 if (FactionsConstants.Faction.MAX_ALLIES > 1) {
                     "alidos"
                 } else {
                     "alido"
                 }
             }.")
-            playerList.update(22, "§1")
-            playerList.update(23, "§eUse §f/f aliança §epara")
-            playerList.update(24, "§econvidar outra facção")
-            playerList.update(25, "§ede confiança para ser")
-            playerList.update(26, "§ea sua aliada.")
-            playerList.update(27, "§0")
-            playerList.update(28, "§eGerencie as permissões")
-            playerList.update(29, "§eda sua facção aliada")
-            playerList.update(30, "§eusando o comando")
-            playerList.update(31, "§f/f permissões.")
+            playerList.update(23, "§1")
+            playerList.update(24, "§eUse §f/f aliança §epara")
+            playerList.update(25, "§econvidar outra facção")
+            playerList.update(26, "§ede confiança para ser")
+            playerList.update(27, "§ea sua aliada.")
+            playerList.update(28, "§0")
+            playerList.update(29, "§eGerencie as permissões")
+            playerList.update(30, "§eda sua facção aliada")
+            playerList.update(31, "§eusando o comando")
+            playerList.update(32, "§f/f permissões.")
 
-            index = 32
+            index = 33
+
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 40)
+
+            playerList.update(41, "§e§lINFORMAÇÕES ${getFactionTag()}")
+            playerList.update(42, "§0")
+            playerList.update(43, "§fTerras: §a0")
+            playerList.update(44, "§fMembros: §a0/0")
+            playerList.update(45, "§fPoder: §a0/0")
+            playerList.update(46, "§aKDR: §a0/0")
+            playerList.update(47, "Líder: §aGutyerrez")
+            playerList.update(48, "§0")
+            playerList.update(49, "§a${FactionsConstants.Symbols.TINY_ARROW_UP} Abates:")
+            playerList.update(50, "§f Civil: §70")
+            playerList.update(51, "§f Neutro: §70")
+            playerList.update(52, "§f Inimigo: §70")
+            playerList.update(53, "§0")
+            playerList.update(54, "§c${FactionsConstants.Symbols.TINY_ARROW_DOWN} Mortes:")
+            playerList.update(55, "§f Civil: §70")
+            playerList.update(56, "§f Neutro: §70")
+            playerList.update(57, "§f Inimigo: §70")
+
+            index = 56
+
+            do {
+                playerList.update(index, "§0")
+
+                index++
+            } while (index != 60)
+        } else {
+            index = 20
 
             do {
                 playerList.update(index, "§1")
@@ -149,12 +182,10 @@ data class FactionUser(
                 index++
             } while (index != 39)
 
-            // allies
-        } else {
             // 40 - 59
             playerList.update(40, "§e§lSTAFF ONLINE")
 
-            var index = 42
+            index = 42
 
             CoreProvider.Cache.Redis.USERS_STATUS.provide().fetchUsersByServer(
                 CoreProvider.application.server!!
@@ -201,6 +232,11 @@ data class FactionUser(
             index++
         } while (index != 79)
     }
+
+
+    fun getPowerRounded() = power.roundToInt(),
+
+    fun getMaxPowerRounded() = maxPower.roundToInt(),
 
     fun getFaction() = if (factionId != null) {
         FactionsProvider.Cache.Local.FACTION.provide().fetchById(factionId!!)

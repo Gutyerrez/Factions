@@ -17,6 +17,8 @@ object FactionsConstants {
 
         const val BLACK_CIRCLE = '\u25CF'
         const val CUBE = '\u2588'
+        const val TINY_ARROW_UP = '\u25B4'
+        const val TINY_ARROW_DOWN = '\u25BE'
 
     }
 

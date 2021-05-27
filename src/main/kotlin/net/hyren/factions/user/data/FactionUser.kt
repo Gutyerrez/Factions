@@ -183,8 +183,8 @@ data class FactionUser(
             playerList.update(7, "§einvasões.")
             playerList.update(8, "§0")
             playerList.update(9, "§eGerencie sua facção")
-            playerList.update(10, "§eusando o comando")
-            playerList.update(11, "§f/f menu§e.")
+            playerList.update(10, "§eatravés do menu de facção")
+            playerList.update(11, "§eusando o comando §f/f menu§e.")
 
             index = 12
 
@@ -203,17 +203,22 @@ data class FactionUser(
                 CoreProvider.application.server!!
             ).map { CoreProvider.Cache.Local.USERS.provide().fetchById(it) }.filter {
                 it != null && it.hasGroup(Group.HELPER)
-            }.forEachIndexed { _index, user ->
-                index = index + _index
+            }.forEach {
+                println("Salve: ${it?.name} -> ${it?.getHighestGroup()?.getColoredPrefix()}")
 
-                playerList.update(index, user?.getHighestGroup()?.getColoredPrefix() + user?.name)
+                playerList.update(
+                    index,
+                    it?.getHighestGroup()?.getColoredPrefix() + it?.name
+                )
+
+                index++
             }
 
             do {
                 playerList.update(index, "§1")
 
                 index++
-            } while (index != 59)
+            } while (index != 60)
         }
 
         playerList.update(60, "§e§lMINHAS INFORMAÇÕES")

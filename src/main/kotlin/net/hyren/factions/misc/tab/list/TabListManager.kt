@@ -7,7 +7,6 @@ import net.hyren.factions.FactionsConstants
 import net.hyren.factions.alpha.misc.player.list.data.PlayerList
 import net.hyren.factions.user.data.FactionUser
 import net.hyren.factions.user.storage.table.FactionsUsersTable
-import org.bukkit.Bukkit
 import org.jetbrains.exposed.dao.id.EntityID
 import java.util.*
 import kotlin.properties.Delegates
@@ -18,33 +17,35 @@ import kotlin.properties.Delegates
 object TabListManager {
 
     private val CACHE = Caffeine.newBuilder()
-        .build<EntityID<UUID>, PlayerList?> {
-            val player = Bukkit.getPlayer(it.value)
+        .build<EntityID<UUID>, PlayerList>()
 
-            if (player == null) {
-                println("Null")
+    fun fetchByUserId(userId: EntityID<UUID>) = CACHE.getIfPresent(userId)
 
-                null
-            } else {
-                println("Cria")
-
-                PlayerList(player)
-            }
-        }
-
-    fun fetchByUserId(userId: EntityID<UUID>) = CACHE.get(userId)
-
-    fun fetchByUserId(userId: UUID) = CACHE.get(
+    fun fetchByUserId(userId: UUID) = CACHE.getIfPresent(
         EntityID(
             userId,
             FactionsUsersTable
         )
     )
 
+    fun create(
+        userId: EntityID<UUID>,
+        playerList: PlayerList
+    ) = CACHE.put(
+        userId,
+        playerList
+    )
+
 }
 
 fun FactionUser.updatePlayerList() {
+    val player = getPlayer() ?: return
+
     println("Update")
+
+    if (TabListManager.fetchByUserId(id) == null) {
+        TabListManager.create(id, PlayerList(player))
+    }
 
     val playerList = TabListManager.fetchByUserId(id)!!
 

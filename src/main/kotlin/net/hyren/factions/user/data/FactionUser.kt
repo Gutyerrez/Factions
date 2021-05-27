@@ -80,8 +80,6 @@ data class FactionUser(
     fun initPlayerList(player: Player) {
         playerList = PlayerList(player)
 
-        playerList.init()
-
         updatePlayerList()
     }
 
@@ -92,15 +90,13 @@ data class FactionUser(
 
         var index by Delegates.notNull<Int>()
 
-        // 0 - 19
-
         playerList.update(0, "§e§lMINHA FACÇÃO")
 
         if (hasFaction()) {
             val faction = getFaction()!!
 
             playerList.update(1, "§e[${faction.tag}] ${faction.name}")
-//            playerList.update(2, "§0")
+            playerList.update(2, "§0")
 
             index = 3
 
@@ -118,11 +114,11 @@ data class FactionUser(
                 index++
             }
 
-//            do {
-//                playerList.update(index, "§1")
-//
-//                index++
-//            } while (index != 20)
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 20)
 
             if (!faction.hasAllies()) {
                 playerList.update(20, "§e§lALIANÇA")
@@ -135,12 +131,12 @@ data class FactionUser(
                     }
                 }."
                 )
-//                playerList.update(22, "§0")
+                playerList.update(22, "§0")
                 playerList.update(23, "§eUse §f/f aliança §epara")
                 playerList.update(24, "§econvidar outra facção")
                 playerList.update(25, "§ede confiança para ser")
                 playerList.update(26, "§ea sua aliada.")
-//                playerList.update(27, "§0")
+                playerList.update(27, "§0")
                 playerList.update(28, "§eGerencie as permissões")
                 playerList.update(29, "§eda sua facção aliada")
                 playerList.update(30, "§eusando o comando")
@@ -148,11 +144,11 @@ data class FactionUser(
 
                 index = 32
 
-//                do {
-//                    playerList.update(index, "§1")
-//
-//                    index++
-//                } while (index != 40)
+                do {
+                    playerList.update(index, "§1")
+
+                    index++
+                } while (index != 40)
             }
 
             playerList.update(40, "§e§lINFORMAÇÕES ${getFactionTag()}")
@@ -162,12 +158,12 @@ data class FactionUser(
             playerList.update(44, "§fPoder: §a${faction.getPowerRounded()}/${faction.getMaxPowerRounded()}")
             playerList.update(45, "§fKDR: §a${faction.getKDR()}")
             playerList.update(46, "Líder: §a${faction.getLeader().name}")
-//            playerList.update(47, "§0")
+            playerList.update(47, "§0")
             playerList.update(48, "§a${FactionsConstants.Symbols.TINY_TRIANGLE_UP} Abates:")
             playerList.update(49, "§f Civil: §7${faction.getCivilianKills()}")
             playerList.update(50, "§f Neutro: §7${faction.getNeutralKills()}")
             playerList.update(51, "§f Inimigo: §7${faction.getEnemyKills()}")
-//            playerList.update(52, "§0")
+            playerList.update(52, "§0")
             playerList.update(53, "§c${FactionsConstants.Symbols.TINY_TRIANGLE_DOWN} Mortes:")
             playerList.update(54, "§f Civil: §7${faction.getCivilianDeaths()}")
             playerList.update(55, "§f Neutro: §7${faction.getNeutralDeaths()}")
@@ -177,27 +173,27 @@ data class FactionUser(
             playerList.update(59, "§0")
         } else {
             playerList.update(1, "§eSem facção.")
-//            playerList.update(2, "§0")
+            playerList.update(2, "§0")
             playerList.update(3, "§eUse §f/f criar <tag> <nome>")
             playerList.update(4, "§ee crie uma nova facção,")
             playerList.update(5, "§econstrua sua base,")
             playerList.update(6, "§ee realize suas próprias")
             playerList.update(7, "§einvasões.")
-//            playerList.update(8, "§0")
+            playerList.update(8, "§0")
             playerList.update(9, "§eGerencie sua facção")
             playerList.update(10, "§eatravés do menu de facção")
             playerList.update(11, "§eusando o comando §f/f menu§e.")
 
             index = 12
 
-//            do {
-//                playerList.update(index, "§1")
-//
-//                index++
-//            } while (index != 40)
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 40)
 
             playerList.update(40, "§e§lSTAFF ONLINE")
-//            playerList.update(41, "§0")
+            playerList.update(41, "§0")
 
             index = 42
 
@@ -214,21 +210,21 @@ data class FactionUser(
                 index++
             }
 
-//            do {
-//                playerList.update(index, "§1")
-//
-//                index++
-//            } while (index != 60)
+            do {
+                playerList.update(index, "§1")
+
+                index++
+            } while (index != 60)
         }
 
         playerList.update(60, "§e§lMINHAS INFORMAÇÕES")
-//        playerList.update(61, "§0")
+        playerList.update(61, "§0")
         playerList.update(62, "§fCoins: §a0.00")
         playerList.update(63, "§fCash: §a0.00")
         playerList.update(64, "§fPoder: §a${getPowerRounded()}/${getMaxPowerRounded()}")
         playerList.update(65, "§fXP: §a0")
         playerList.update(66, "§fKDR: §a${getKDR()}")
-//        playerList.update(67, "§0")
+        playerList.update(67, "§0")
         playerList.update(68, "§eHabilidades:")
         playerList.update(69, "§f Acrobacia: §a0 §7(0/1020)")
         playerList.update(70, "§f Alquimia: §a0 §7(0/1020)")

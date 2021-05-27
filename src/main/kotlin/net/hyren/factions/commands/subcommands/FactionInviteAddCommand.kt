@@ -74,7 +74,7 @@ class FactionInviteAddCommand : CustomCommand("convidar"), FactionNeededCommandR
                     CreateFactionInviteDTO(
                         factionUser.factionId!!,
                         targetFactionUser.id
-                    )
+                    ) { /* nothing */ }
                 )
 
                 CoreProvider.Databases.Redis.ECHO.provide().publishToCurrentServer(

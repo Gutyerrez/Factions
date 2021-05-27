@@ -148,31 +148,23 @@ data class FactionUser(
                 index++
             } while (index != 40)
 
-            playerList.update(42, "§e§lINFORMAÇÕES ${getFactionTag()}")
-            playerList.update(43, "§3")
-            playerList.update(44, "§fTerras: §a0")
-            playerList.update(45, "§fMembros: §a0/0")
-            playerList.update(46, "§fPoder: §a0/0")
-            playerList.update(47, "§aKDR: §a0/0")
-            playerList.update(48, "Líder: §aGutyerrez")
-            playerList.update(49, "§4")
-            playerList.update(50, "§a${FactionsConstants.Symbols.TINY_TRIANGLE_UP} Abates:")
-            playerList.update(51, "§f Civil: §70")
-            playerList.update(52, "§f Neutro: §70")
-            playerList.update(53, "§f Inimigo: §70")
-            playerList.update(54, "§5")
-            playerList.update(55, "§c${FactionsConstants.Symbols.TINY_TRIANGLE_DOWN} Mortes:")
-            playerList.update(56, "§f Civil: §70")
-            playerList.update(57, "§f Neutro: §70")
-            playerList.update(58, "§f Inimigo: §70")
-
-            index = 59
-
-            do {
-                playerList.update(index, "§0")
-
-                index++
-            } while (index != 60)
+            playerList.update(43, "§e§lINFORMAÇÕES ${getFactionTag()}")
+            playerList.update(44, "§3")
+            playerList.update(45, "§fTerras: §a0")
+            playerList.update(46, "§fMembros: §a0/0")
+            playerList.update(47, "§fPoder: §a0/0")
+            playerList.update(48, "§fKDR: §a0/0")
+            playerList.update(49, "Líder: §aGutyerrez")
+            playerList.update(50, "§4")
+            playerList.update(51, "§a${FactionsConstants.Symbols.TINY_TRIANGLE_UP} Abates:")
+            playerList.update(52, "§f Civil: §70")
+            playerList.update(53, "§f Neutro: §70")
+            playerList.update(54, "§f Inimigo: §70")
+            playerList.update(55, "§5")
+            playerList.update(56, "§c${FactionsConstants.Symbols.TINY_TRIANGLE_DOWN} Mortes:")
+            playerList.update(57, "§f Civil: §70")
+            playerList.update(58, "§f Neutro: §70")
+            playerList.update(59, "§f Inimigo: §70")
         } else {
             index = 20
 
@@ -182,7 +174,6 @@ data class FactionUser(
                 index++
             } while (index != 39)
 
-            // 40 - 59
             playerList.update(40, "§e§lSTAFF ONLINE")
 
             index = 42
@@ -204,35 +195,23 @@ data class FactionUser(
             } while (index != 59)
         }
 
-        // later
-
-        // 60 - 79
-
-        playerList.update(60, "§e§lMINHAS INFORMAÇÕES")
-        playerList.update(61, "§5")
-        playerList.update(62, "§fCoins: §a0.00")
-        playerList.update(63, "§fCash: §a0.00")
-        playerList.update(64, "§fPoder: §a${getPowerRounded()}")
-        playerList.update(65, "§fKDR: §a${getKDR()}")
-        playerList.update(66, "§6")
-        playerList.update(67, "§eHabilidades:")
-        playerList.update(68, "§f Acrobacia: §a0 §7(0/1020)")
-        playerList.update(69, "§f Alquimia: §a0 §7(0/1020)")
-        playerList.update(70, "§f Arqueiro: §a0 §7(0/1020)")
-        playerList.update(71, "§f Machado: §a0 §7(0/1020)")
-        playerList.update(72, "§f Escavação: §a0 §7(0/1020)")
-        playerList.update(73, "§f Herbalismo: §a0 §7(0/1020)")
-        playerList.update(74, "§f Mineração: §a0 §7(0/1020)")
-        playerList.update(75, "§f Reparação: §a0 §7(0/1020)")
-        playerList.update(76, "§f Espadas: §a0 §7(0/1020)")
-
-        index = 77
-
-        do {
-            playerList.update(index, "§1")
-
-            index++
-        } while (index != 79)
+        playerList.update(63, "§e§lMINHAS INFORMAÇÕES")
+        playerList.update(64, "§5")
+        playerList.update(65, "§fCoins: §a0.00")
+        playerList.update(66, "§fCash: §a0.00")
+        playerList.update(67, "§fPoder: §a${getPowerRounded()}")
+        playerList.update(68, "§fKDR: §a${getKDR()}")
+        playerList.update(69, "§6")
+        playerList.update(70, "§eHabilidades:")
+        playerList.update(71, "§f Acrobacia: §a0 §7(0/1020)")
+        playerList.update(72, "§f Alquimia: §a0 §7(0/1020)")
+        playerList.update(73, "§f Arqueiro: §a0 §7(0/1020)")
+        playerList.update(74, "§f Machado: §a0 §7(0/1020)")
+        playerList.update(75, "§f Escavação: §a0 §7(0/1020)")
+        playerList.update(76, "§f Herbalismo: §a0 §7(0/1020)")
+        playerList.update(77, "§f Mineração: §a0 §7(0/1020)")
+        playerList.update(78, "§f Reparação: §a0 §7(0/1020)")
+        playerList.update(79, "§f Espadas: §a0 §7(0/1020)"))
     }
 
 

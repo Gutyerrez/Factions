@@ -19,8 +19,6 @@ class PostgreSQLFactionsUsersRepository : IFactionsUsersRepository {
     ) = transaction(
         FactionsAlphaProvider.Databases.PostgreSQL.POSTGRESQL_FACTIONS_ALPHA.provide()
     ) {
-        addLogger(StdOutSqlLogger)
-
         FactionUserDAO.findById(fetchFactionUserByUserId.userId)?.toFactionUser()
     }
 
@@ -29,8 +27,6 @@ class PostgreSQLFactionsUsersRepository : IFactionsUsersRepository {
     ) = transaction(
         FactionsAlphaProvider.Databases.PostgreSQL.POSTGRESQL_FACTIONS_ALPHA.provide()
     ) {
-        addLogger(StdOutSqlLogger)
-
         CoreProvider.Cache.Local.USERS.provide().fetchByName(fetchFactionUserByUserName.name)?.let {
             FactionUserDAO.findById(it.id)?.toFactionUser()
         }
@@ -41,8 +37,6 @@ class PostgreSQLFactionsUsersRepository : IFactionsUsersRepository {
     ) = transaction(
         FactionsAlphaProvider.Databases.PostgreSQL.POSTGRESQL_FACTIONS_ALPHA.provide()
     ) {
-        addLogger(StdOutSqlLogger)
-
         FactionUserDAO.find {
             FactionsUsersTable.factionId eq fetchFactionUsersByFactionIdDTO.factionId
         }.map { it.toFactionUser() }.toTypedArray()

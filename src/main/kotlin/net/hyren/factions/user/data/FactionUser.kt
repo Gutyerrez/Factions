@@ -74,19 +74,10 @@ data class FactionUser(
     user.updatedAt
 ) {
 
-    // Player List
-    private lateinit var playerList: PlayerList
-
-    fun initPlayerList(player: Player) {
-        playerList = PlayerList(player)
-
-        updatePlayerList()
-    }
-
     fun updatePlayerList() {
-        if (!this::playerList.isInitialized) {
-            throw UninitializedPropertyAccessException("PlayerList variable is not initialized")
-        }
+        val player = getPlayer() ?: return
+
+        val playerList = PlayerList(player)
 
         var index by Delegates.notNull<Int>()
 

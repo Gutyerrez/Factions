@@ -156,12 +156,12 @@ data class FactionUser(
             playerList.update(46, "§aKDR: §a0/0")
             playerList.update(47, "Líder: §aGutyerrez")
             playerList.update(48, "§0")
-            playerList.update(49, "§a${FactionsConstants.Symbols.TINY_ARROW_UP} Abates:")
+            playerList.update(49, "§a${FactionsConstants.Symbols.TINY_TRIANGLE_UP} Abates:")
             playerList.update(50, "§f Civil: §70")
             playerList.update(51, "§f Neutro: §70")
             playerList.update(52, "§f Inimigo: §70")
             playerList.update(53, "§0")
-            playerList.update(54, "§c${FactionsConstants.Symbols.TINY_ARROW_DOWN} Mortes:")
+            playerList.update(54, "§c${FactionsConstants.Symbols.TINY_TRIANGLE_DOWN} Mortes:")
             playerList.update(55, "§f Civil: §70")
             playerList.update(56, "§f Neutro: §70")
             playerList.update(57, "§f Inimigo: §70")
@@ -211,7 +211,7 @@ data class FactionUser(
         playerList.update(60, "§e§lMINHAS INFORMAÇÕES")
         playerList.update(62, "§fCoins: §a0.00")
         playerList.update(63, "§fCash: §a0.00")
-        playerList.update(64, "§fPoder: §a$powerRounded")
+        playerList.update(64, "§fPoder: §a${getPowerRounded()}")
         playerList.update(65, "§fKDR: §a${getKDR()}")
         playerList.update(67, "§eHabilidades:")
         playerList.update(68, "§f Acrobacia: §a0 §7(0/1020)")
@@ -224,7 +224,7 @@ data class FactionUser(
         playerList.update(75, "§f Reparação: §a0 §7(0/1020)")
         playerList.update(76, "§f Espadas: §a0 §7(0/1020)")
 
-        var index = 77
+        index = 77
 
         do {
             playerList.update(index, "§1")
@@ -234,9 +234,9 @@ data class FactionUser(
     }
 
 
-    fun getPowerRounded() = power.roundToInt(),
+    fun getPowerRounded() = power.roundToInt()
 
-    fun getMaxPowerRounded() = maxPower.roundToInt(),
+    fun getMaxPowerRounded() = maxPower.roundToInt()
 
     fun getFaction() = if (factionId != null) {
         FactionsProvider.Cache.Local.FACTION.provide().fetchById(factionId!!)

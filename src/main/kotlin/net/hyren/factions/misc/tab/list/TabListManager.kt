@@ -50,8 +50,6 @@ fun FactionUser.updatePlayerList() {
 
         val playerList = TabListManager.fetchByUserId(id)!!
 
-        playerList.reset()
-
         var index by Delegates.notNull<Int>()
 
         playerList.update(0, "§e§lMINHA FACÇÃO")

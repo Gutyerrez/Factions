@@ -142,7 +142,7 @@ data class FactionUser(
                 playerList.update(28, "§eGerencie as permissões")
                 playerList.update(29, "§eda sua facção aliada")
                 playerList.update(30, "§eusando o comando")
-                playerList.update(31, "§f/f permissões.")
+                playerList.update(31, "§f/f permissões§e.")
 
                 index = 32
 
@@ -174,15 +174,28 @@ data class FactionUser(
             playerList.update(58, "§0")
             playerList.update(59, "§0")
         } else {
-            index = 20
+            playerList.update(1, "§eSem facção.")
+            playerList.update(2, "§0")
+            playerList.update(3, "§eUse §f/f criar <tag> <nome>")
+            playerList.update(4, "§ee crie uma nova facção,")
+            playerList.update(5, "§econstrua sua base,")
+            playerList.update(6, "§ee realize suas próprias")
+            playerList.update(7, "§einvasões.")
+            playerList.update(8, "§0")
+            playerList.update(9, "§eGerencie sua facção")
+            playerList.update(10, "§eusando o comando")
+            playerList.update(11, "§f/f menu§e.")
+
+            index = 12
 
             do {
                 playerList.update(index, "§1")
 
                 index++
-            } while (index != 39)
+            } while (index != 40)
 
             playerList.update(40, "§e§lSTAFF ONLINE")
+            playerList.update(41, "§0")
 
             index = 42
 
@@ -248,16 +261,11 @@ data class FactionUser(
 
     fun getTotalDeaths() = enemyDeaths + civilianDeaths + neutralDeaths
 
-    fun getKDR(): String {
-        val kdr = (getTotalKills() / if (getTotalDeaths() == 0) {
-            1
-        } else {
-            getTotalDeaths()
-        })
-
-
-        return kdr.toBigDecimal().setScale(2, RoundingMode.UP).toPlainString().replace(",", ".")
-    }
+    fun getKDR() = (getTotalKills() / if (getTotalDeaths() == 0) {
+        1
+    } else {
+        getTotalDeaths()
+    }).toBigDecimal().setScale(2, RoundingMode.UP).toPlainString().replace('.', ',')
 
     fun hasFaction() = factionId != null
 

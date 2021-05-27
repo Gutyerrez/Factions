@@ -84,15 +84,11 @@ data class Faction(
         it.enemyDeaths + it.neutralDeaths + it.civilianDeaths
     }
 
-    fun getKDR(): String {
-        val kdr = (getTotalKills() / if (getTotalDeaths() == 0) {
-            1
-        } else {
-            getTotalDeaths()
-        })
-
-        return kdr.toBigDecimal().setScale(2, RoundingMode.UP).toPlainString().replace(",", ".")
-    }
+    fun getKDR()  = (getTotalKills() / if (getTotalDeaths() == 0) {
+        1
+    } else {
+        getTotalDeaths()
+    }).toBigDecimal().setScale(2, RoundingMode.UP).toPlainString().replace('.', ',')
 
     fun hasInvited(factionUser: FactionUser) = getSentInvites().any { it.factionUserId == factionUser.id }
 

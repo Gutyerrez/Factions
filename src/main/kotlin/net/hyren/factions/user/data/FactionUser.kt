@@ -211,7 +211,7 @@ data class FactionUser(
         playerList.update(76, "§f Herbalismo: §a0 §7(0/1020)")
         playerList.update(77, "§f Mineração: §a0 §7(0/1020)")
         playerList.update(78, "§f Reparação: §a0 §7(0/1020)")
-        playerList.update(79, "§f Espadas: §a0 §7(0/1020)"))
+        playerList.update(79, "§f Espadas: §a0 §7(0/1020)")
     }
 
 

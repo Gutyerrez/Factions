@@ -13,6 +13,7 @@ import org.joda.time.DateTime
 import java.math.RoundingMode
 import java.util.*
 import kotlin.math.roundToInt
+import kotlin.properties.Delegates
 
 /**
  * @author Gutyerrez
@@ -87,37 +88,49 @@ data class FactionUser(
             throw UninitializedPropertyAccessException("PlayerList variable is not initialized")
         }
 
-        var index = 0
+        var index by Delegates.notNull<Int>()
 
         // 0 - 19
 
         playerList.update(0, "§e§lMINHA FACÇÃO")
 
         if (hasFaction()) {
-            playerList.update(1, "§e[${getFactionTag()}] ${getFactionName()}")
+            val faction = getFaction()!!
+
+            playerList.update(1, "§e[${faction.tag}] ${faction.name}")
             playerList.update(2, "§0")
 
             index = 3
 
-            getFaction()?.getUsers()?.forEachIndexed { _index, factionUser ->
-                index = index + _index
-
-                playerList.update(index, "${
-                    if (factionUser.isOnline()) {
+            faction.getUsers().forEach { it ->
+                println("Update line $index -> ${
+                    if (it.isOnline()) {
                         "§a"
                     } else {
                         "§7"
                     }
                 } ${FactionsConstants.Symbols.BLACK_CIRCLE} ${
-                    factionUser.getHighestGroup(CoreProvider.application.server).getColoredPrefix() 
-                }${factionUser.role?.prefix + factionUser.name}")
+                    it.getHighestGroup(CoreProvider.application.server).getColoredPrefix()
+                }${it.role?.prefix + it.name}")
+
+                playerList.update(index, "${
+                    if (it.isOnline()) {
+                        "§a"
+                    } else {
+                        "§7"
+                    }
+                } ${FactionsConstants.Symbols.BLACK_CIRCLE} ${
+                    it.getHighestGroup(CoreProvider.application.server).getColoredPrefix() 
+                }${it.role?.prefix + it.name}")
+
+                index++
             }
 
             do {
                 playerList.update(index, "§1")
 
                 index++
-            } while (index != 20)
+            } while (index != 21)
 
             // 21 - 40
 
@@ -198,11 +211,12 @@ data class FactionUser(
             } while (index != 59)
         }
 
-        playerList.update(61, "§e§lMINHAS INFORMAÇÕES")
-        playerList.update(62, "§0")
-        playerList.update(63, "§fCoins: §a0.00")
-        playerList.update(64, "§fCash: §a0.00")
-        playerList.update(65, "§fPoder: §a${getPowerRounded()}")
+        playerList.update(60, "§e§lMINHAS INFORMAÇÕES")
+        playerList.update(61, "§0")
+        playerList.update(62, "§fCoins: §a0.00")
+        playerList.update(63, "§fCash: §a0.00")
+        playerList.update(64, "§fPoder: §a${getPowerRounded()}")
+        playerList.update(65, "§fXP: §a0")
         playerList.update(66, "§fKDR: §a${getKDR()}")
         playerList.update(67, "§0")
         playerList.update(68, "§eHabilidades:")

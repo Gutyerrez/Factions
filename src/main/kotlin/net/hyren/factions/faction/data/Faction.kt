@@ -60,6 +60,8 @@ data class Faction(
 
     fun getLands() = FactionsProvider.Cache.Local.FACTION_LANDS.provide().fetchByFactionId(id)!!
 
+    fun getLandCount() = getLands().size
+
     fun getSentInvites() = FactionsProvider.Cache.Local.FACTION_INVITES.provide().fetchByFactionId(id)!!
 
     fun getEnemyKills() = getUsers().sumOf { it.enemyKills }
@@ -82,11 +84,21 @@ data class Faction(
         it.enemyDeaths + it.neutralDeaths + it.civilianDeaths
     }
 
-    fun getKDR() = (getTotalKills() / if (getTotalDeaths() == 0) {
-        1
-    } else { getTotalDeaths() }).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
+    fun getKDR(): String {
+        val kdr = (getTotalKills() / if (getTotalDeaths() == 0) {
+            1
+        } else {
+            getTotalDeaths()
+        })
+
+        return kdr.toBigDecimal().setScale(2, RoundingMode.UP).toPlainString().replace(",", ".")
+    }
 
     fun hasInvited(factionUser: FactionUser) = getSentInvites().any { it.factionUserId == factionUser.id }
+
+    fun hasAllies() = false
+
+    fun hasEnemies() = false
 
     override fun hashCode() = id.hashCode()
 

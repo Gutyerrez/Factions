@@ -122,52 +122,54 @@ data class FactionUser(
                 index++
             } while (index != 20)
 
-            // 21 - 40
+            if (!faction.hasAllies()) {
+                playerList.update(20, "§e§lALIANÇA")
+                playerList.update(
+                    21, "§eSem ${
+                    if (FactionsConstants.Faction.MAX_ALLIES > 1) {
+                        "alidos"
+                    } else {
+                        "alido"
+                    }
+                }."
+                )
+                playerList.update(22, "§0")
+                playerList.update(23, "§eUse §f/f aliança §epara")
+                playerList.update(24, "§econvidar outra facção")
+                playerList.update(25, "§ede confiança para ser")
+                playerList.update(26, "§ea sua aliada.")
+                playerList.update(27, "§0")
+                playerList.update(28, "§eGerencie as permissões")
+                playerList.update(29, "§eda sua facção aliada")
+                playerList.update(30, "§eusando o comando")
+                playerList.update(31, "§f/f permissões.")
 
-            playerList.update(20, "§e§lALIANÇA")
-            playerList.update(21, "§eSem ${
-                if (FactionsConstants.Faction.MAX_ALLIES > 1) {
-                    "alidos"
-                } else {
-                    "alido"
-                }
-            }.")
-            playerList.update(22, "§0")
-            playerList.update(23, "§eUse §f/f aliança §epara")
-            playerList.update(24, "§econvidar outra facção")
-            playerList.update(25, "§ede confiança para ser")
-            playerList.update(26, "§ea sua aliada.")
-            playerList.update(27, "§0")
-            playerList.update(28, "§eGerencie as permissões")
-            playerList.update(29, "§eda sua facção aliada")
-            playerList.update(30, "§eusando o comando")
-            playerList.update(31, "§f/f permissões.")
+                index = 32
 
-            index = 32
+                do {
+                    playerList.update(index, "§1")
 
-            do {
-                playerList.update(index, "§1")
-
-                index++
-            } while (index != 40)
+                    index++
+                } while (index != 40)
+            }
 
             playerList.update(40, "§e§lINFORMAÇÕES ${getFactionTag()}")
             playerList.update(41, "§0")
-            playerList.update(42, "§fTerras: §a0")
-            playerList.update(43, "§fMembros: §a0/0")
-            playerList.update(44, "§fPoder: §a0/0")
-            playerList.update(45, "§fKDR: §a0/0")
-            playerList.update(46, "Líder: §aGutyerrez")
+            playerList.update(42, "§fTerras: §a${faction.getLandCount()}")
+            playerList.update(43, "§fMembros: §a${faction.getUsersCount()}/${faction.maxUsers}")
+            playerList.update(44, "§fPoder: §a${faction.getPowerRounded()}/${faction.getMaxPowerRounded()}")
+            playerList.update(45, "§fKDR: §a${faction.getKDR()}")
+            playerList.update(46, "Líder: §a${faction.getLeader().name}")
             playerList.update(47, "§0")
             playerList.update(48, "§a${FactionsConstants.Symbols.TINY_TRIANGLE_UP} Abates:")
-            playerList.update(49, "§f Civil: §70")
-            playerList.update(50, "§f Neutro: §70")
-            playerList.update(51, "§f Inimigo: §70")
+            playerList.update(49, "§f Civil: §7${faction.getCivilianKills()}")
+            playerList.update(50, "§f Neutro: §7${faction.getNeutralKills()}")
+            playerList.update(51, "§f Inimigo: §7${faction.getEnemyKills()}")
             playerList.update(52, "§0")
             playerList.update(53, "§c${FactionsConstants.Symbols.TINY_TRIANGLE_DOWN} Mortes:")
-            playerList.update(54, "§f Civil: §70")
-            playerList.update(55, "§f Neutro: §70")
-            playerList.update(56, "§f Inimigo: §70")
+            playerList.update(54, "§f Civil: §7${faction.getCivilianDeaths()}")
+            playerList.update(55, "§f Neutro: §7${faction.getNeutralDeaths()}")
+            playerList.update(56, "§f Inimigo: §7${faction.getEnemyDeaths()}")
             playerList.update(57, "§0")
             playerList.update(58, "§0")
             playerList.update(59, "§0")
@@ -205,7 +207,7 @@ data class FactionUser(
         playerList.update(61, "§0")
         playerList.update(62, "§fCoins: §a0.00")
         playerList.update(63, "§fCash: §a0.00")
-        playerList.update(64, "§fPoder: §a${getPowerRounded()}")
+        playerList.update(64, "§fPoder: §a${getPowerRounded()}/${getMaxPowerRounded()}")
         playerList.update(65, "§fXP: §a0")
         playerList.update(66, "§fKDR: §a${getKDR()}")
         playerList.update(67, "§0")
@@ -246,9 +248,16 @@ data class FactionUser(
 
     fun getTotalDeaths() = enemyDeaths + civilianDeaths + neutralDeaths
 
-    fun getKDR() = (getTotalKills() / if (getTotalDeaths() == 0) {
-        1
-    } else { getTotalDeaths() }).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
+    fun getKDR(): String {
+        val kdr = (getTotalKills() / if (getTotalDeaths() == 0) {
+            1
+        } else {
+            getTotalDeaths()
+        })
+
+
+        return kdr.toBigDecimal().setScale(2, RoundingMode.UP).toPlainString().replace(",", ".")
+    }
 
     fun hasFaction() = factionId != null
 

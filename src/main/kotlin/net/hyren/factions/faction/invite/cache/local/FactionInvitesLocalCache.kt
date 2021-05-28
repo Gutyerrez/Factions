@@ -3,6 +3,7 @@ package net.hyren.factions.faction.invite.cache.local
 import com.github.benmanes.caffeine.cache.Caffeine
 import net.hyren.core.shared.cache.local.LocalCache
 import net.hyren.factions.FactionsProvider
+import net.hyren.factions.faction.data.Faction
 import net.hyren.factions.faction.invite.data.FactionInvite
 import net.hyren.factions.faction.invite.storage.dto.FetchFactionsInvitesByFactionIdDTO
 import net.hyren.factions.faction.invite.storage.dto.FetchFactionsInvitesByFactionUserIdDTO
@@ -61,6 +62,10 @@ class FactionInvitesLocalCache : LocalCache {
         factionUser.factionId?.let {
             CACHE_BY_FACTION_ID.refresh(it)
         }
+    }
+
+    fun refresh(faction: Faction) {
+        CACHE_BY_FACTION_ID.refresh(faction.id)
     }
 
 }

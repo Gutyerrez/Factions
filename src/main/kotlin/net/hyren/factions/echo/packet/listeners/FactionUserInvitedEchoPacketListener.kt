@@ -17,7 +17,13 @@ class FactionUserInvitedEchoPacketListener : EchoPacketListener {
         packet: FactionUserInvitedEchoPacket
     ) {
         var factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)!!
-        val faction = FactionsProvider.Cache.Local.FACTION.provide().fetchById(packet.factionId!!)!!
+        var faction = FactionsProvider.Cache.Local.FACTION.provide().fetchById(packet.factionId!!)!!
+
+        FactionsProvider.Cache.Local.FACTION_INVITES.provide().refresh(factionUser)
+        FactionsProvider.Cache.Local.FACTION_INVITES.provide().refresh(faction)
+
+        factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)!!
+        faction = FactionsProvider.Cache.Local.FACTION.provide().fetchById(packet.factionId!!)!!
 
         factionUser.getPlayer()?.sendMessage(
             ComponentBuilder()

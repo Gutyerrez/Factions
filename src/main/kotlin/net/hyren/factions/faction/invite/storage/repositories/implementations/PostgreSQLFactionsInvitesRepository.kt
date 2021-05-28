@@ -23,7 +23,7 @@ class PostgreSQLFactionsInvitesRepository : IFactionsInvitesRepository {
         FactionsAlphaProvider.Databases.PostgreSQL.POSTGRESQL_FACTIONS_ALPHA.provide()
     ) {
         FactionsInvitesTable.select {
-            FactionsInvitesTable.factionUserId eq fetchFactionsInvitesByFactionIdDTO.factionId
+            FactionsInvitesTable.factionId eq fetchFactionsInvitesByFactionIdDTO.factionId
         }.map { it.toFactionInvite() }.toTypedArray()
     }
 

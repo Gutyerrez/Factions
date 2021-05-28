@@ -54,8 +54,6 @@ class FactionInviteAcceptCommand : CustomCommand("aceitar") {
             return false
         }
 
-        faction.getSentInvites().forEach { println(it) }
-
         if (!faction.hasInvited(factionUser)) {
             commandSender.sendMessage(
                 TextComponent("§cVocê não recebeu um convite para participar dessa facção.")

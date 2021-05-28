@@ -21,9 +21,9 @@ class FactionCommand : CustomCommand("f") {
         FactionDisbandCommand(),
         FactionMapCommand(),
         FactionInviteCommand(),
+        FactionAcceptInviteCommand(),
         FactionInfoCommand(),
-        FactionProfileCommand(),
-        FactionInviteAddCommand()
+        FactionProfileCommand()
     )
 
     override fun onCommand(
@@ -59,7 +59,7 @@ class FactionCommand : CustomCommand("f") {
                 }
             }
         } else {
-            val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user.id!!)
+            val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id)
 
             commandSender.openInventory(FactionInventory(factionUser))
             return false

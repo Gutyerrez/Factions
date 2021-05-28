@@ -1,15 +1,11 @@
 package net.hyren.factions.faction.invite.storage.repositories.implementations
 
 import net.hyren.factions.alpha.FactionsAlphaProvider
-import net.hyren.factions.faction.invite.data.FactionInvite
 import net.hyren.factions.faction.invite.storage.dto.*
 import net.hyren.factions.faction.invite.storage.repositories.IFactionsInvitesRepository
 import net.hyren.factions.faction.invite.storage.table.FactionsInvitesTable
 import net.hyren.factions.faction.invite.storage.table.FactionsInvitesTable.toFactionInvite
-import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.deleteWhere
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 /**
@@ -29,7 +25,9 @@ class PostgreSQLFactionsInvitesRepository : IFactionsInvitesRepository {
 
     override fun fetchFactionsInvitesByFactionUserId(
         fetchFactionsInvitesByFactionUserIdDTO: FetchFactionsInvitesByFactionUserIdDTO
-    ) = transaction {
+    ) = transaction(
+        FactionsAlphaProvider.Databases.PostgreSQL.POSTGRESQL_FACTIONS_ALPHA.provide()
+    ) {
         FactionsInvitesTable.select {
             FactionsInvitesTable.factionUserId eq fetchFactionsInvitesByFactionUserIdDTO.factionUserId
         }.map { it.toFactionInvite() }.toTypedArray()

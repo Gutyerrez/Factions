@@ -6,7 +6,6 @@ import net.hyren.factions.*
 import net.hyren.factions.user.data.FactionUser
 import net.hyren.factions.user.role.Role
 import org.bukkit.Bukkit
-import org.bukkit.entity.Player
 import org.jetbrains.exposed.dao.id.EntityID
 import org.joda.time.DateTime
 import java.math.RoundingMode
@@ -54,9 +53,9 @@ data class Faction(
     // this only return player in instance, if player is not in this instance, ignore the player
     fun getOnlinePlayers() = getOnlineUsers().map {
         Bukkit.getPlayer(it.getUniqueId())
-    }.stream().filter {
+    }.filter {
         it != null
-    }.toArray() as Array<Player>
+    }.toTypedArray()
 
     fun getLands() = FactionsProvider.Cache.Local.FACTION_LANDS.provide().fetchByFactionId(id)!!
 

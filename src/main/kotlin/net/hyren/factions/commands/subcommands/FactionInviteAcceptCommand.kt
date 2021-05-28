@@ -24,9 +24,9 @@ class FactionInviteAcceptCommand : CustomCommand("aceitar") {
 
     override fun getParent() = FactionInviteCommand()
 
-    override fun getArguments() = listOf(
-        Argument("facção")
-    )
+    override fun getUsage0(): Array<BaseComponent> = ComponentBuilder(
+        "§cUtilize /f convite aceitar <facção>."
+    ).create()
 
     override fun onCommand(
         commandSender: CommandSender,
@@ -36,19 +36,19 @@ class FactionInviteAcceptCommand : CustomCommand("aceitar") {
         var factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id) ?: throw NullPointerException(
             "faction user is null"
         )
-        val faction = FactionsProvider.Cache.Local.FACTION.provide().fetchByName(args[0])
+        val faction = FactionsProvider.Cache.Local.FACTION.provide().fetchByName(if (args.size != 1) {
+            args.joinToString(" ")
+        } else {
+            args[0]
+        }) ?: FactionsProvider.Cache.Local.FACTION.provide().fetchByTag(args[0])
 
         if (faction == null) {
-            commandSender.sendMessage(
-                DefaultMessage.FACTION_NOT_FOUND
-            )
+            commandSender.sendMessage(DefaultMessage.FACTION_NOT_FOUND)
             return false
         }
 
         if (factionUser.hasFaction()) {
-            commandSender.sendMessage(
-                DefaultMessage.YOU_ALREADY_HAVE_FACTION
-            )
+            commandSender.sendMessage(DefaultMessage.YOU_ALREADY_HAVE_FACTION)
             return false
         }
 

@@ -91,15 +91,7 @@ data class Faction(
     }).toBigDecimal().setScale(2, RoundingMode.UP).toPlainString().replace('.', ',')
 
     fun hasInvited(factionUser: FactionUser) = getSentInvites().any {
-        println("- " + factionUser.id)
-
-        println("+ " + it.factionUserId)
-
-        println("1: " + (factionUser.id == it.factionUserId))
-
-        println("2: " + (it.factionUserId == factionUser.id))
-
-        it.factionUserId == factionUser.id
+        it.factionUserId.value == factionUser.getUniqueId()
     }
 
     fun hasAllies() = false

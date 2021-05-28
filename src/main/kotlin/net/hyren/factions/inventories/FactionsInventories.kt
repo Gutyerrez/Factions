@@ -32,12 +32,13 @@ final class FactionInventory(
             10,
             ItemBuilder(Material.SKULL_ITEM)
                 .durability(3)
+                .skullOwner(factionUser.name)
                 .name(factionUser.getHighestGroup().getColoredPrefix() + factionUser.name)
                 .lore(
                     arrayOf(
                         "§fPoder: §7${factionUser.getPowerRounded()}/${factionUser.getMaxPowerRounded()}",
                         "§fCoins: §70",
-                        "§fCargo: ${if (factionUser.hasFaction()) {
+                        "§fCargo: §7${if (factionUser.hasFaction()) {
                             factionUser.role?.prefix + factionUser.role?.displayName
                         } else {
                             "Nenhum."

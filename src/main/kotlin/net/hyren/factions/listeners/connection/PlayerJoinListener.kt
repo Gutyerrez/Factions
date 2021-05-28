@@ -3,7 +3,6 @@ package net.hyren.factions.listeners.connection
 import net.hyren.core.shared.CoreProvider
 import net.hyren.core.shared.groups.Group
 import net.hyren.factions.FactionsProvider
-import net.hyren.factions.alpha.misc.player.list.data.PlayerList
 import net.hyren.factions.misc.player.list.updatePlayerList
 import org.bukkit.Bukkit
 import org.bukkit.event.*
@@ -23,8 +22,6 @@ class PlayerJoinListener : Listener {
         val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user.id)
 
         Bukkit.getOnlinePlayers().forEach {
-            PlayerList.hideCommonPlayers(it)
-
             FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(it.uniqueId)?.let {
                 when {
                     user.hasGroup(Group.HELPER) && !it.hasFaction() -> it.updatePlayerList()
@@ -33,8 +30,6 @@ class PlayerJoinListener : Listener {
                 }
             }
         }
-
-        PlayerList.hideCommonPlayers(player)
 
         factionUser?.updatePlayerList()
     }

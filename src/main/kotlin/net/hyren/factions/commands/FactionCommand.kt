@@ -61,7 +61,7 @@ class FactionCommand : CustomCommand("f") {
         } else {
             val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id)
 
-            commandSender.openInventory(FactionInventory(factionUser))
+            factionUser?.let { commandSender.openInventory(FactionInventory(it)) }
             return false
         }
     }

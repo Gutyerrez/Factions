@@ -1,12 +1,9 @@
 package net.hyren.factions.inventories
 
-import net.hyren.core.spigot.CoreSpigotConstants
 import net.hyren.core.spigot.inventory.CustomInventory
 import net.hyren.core.spigot.misc.utils.*
-import net.hyren.factions.FactionsProvider
 import net.hyren.factions.user.data.FactionUser
-import org.bukkit.Material
-import org.bukkit.entity.Player
+import org.bukkit.*
 
 /**
  * @author Gutyerrez
@@ -142,13 +139,14 @@ final class FactionInventory(
             // faction items
         } else {
             setItem(
-                31,
+                29,
                 ItemBuilder(Material.BANNER)
+                    .color(DyeColor.WHITE)
                     .build()
             )
 
             setItem(
-                32,
+                30,
                 ItemBuilder(Material.EMPTY_MAP)
                     .build()
             )
@@ -156,20 +154,20 @@ final class FactionInventory(
             // a dirt varia de acordo com a zona atual
 
             setItem(
-                33,
+                31,
                 ItemBuilder(Material.DIRT)
                     .build()
             )
 
             setItem(
-                34,
+                32,
                 ItemBuilder(Material.PAPER)
                     .amount(factionUser.getReceivedInvites().size)
                     .build()
             )
 
             setItem(
-                35,
+                33,
                 ItemBuilder(Material.SKULL_ITEM)
                     .durability(3)
                     .skull(BlockColor.GREY)

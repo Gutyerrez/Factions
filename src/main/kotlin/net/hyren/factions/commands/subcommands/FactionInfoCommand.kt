@@ -19,6 +19,8 @@ class FactionInfoCommand : CustomCommand("info") {
         "§cUtilize /${this.getNameExact()} <tag>."
     ).create()
 
+    override fun getDescription0() = "Lista todos os comandos relacionado ao Sistema de Facções."
+
     override fun onCommand(
         commandSender: CommandSender,
         user: User?,

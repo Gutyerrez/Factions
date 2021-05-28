@@ -25,6 +25,8 @@ class FactionCreateCommand : CustomCommand("criar") {
         "§cUtilize /${getNameExact()} <tag> <nome>."
     ).create()
 
+    override fun getDescription0() = "Criar uma facção."
+
     override fun onCommand(
         commandSender: CommandSender,
         user: User?,

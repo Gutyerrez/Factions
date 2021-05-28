@@ -30,6 +30,8 @@ data class Faction(
 
     val fullyQualifiedName = "[$tag] - $name"
 
+    fun getTagAndName() = "[$tag] $name"
+
     fun getPower() = getUsers().sumOf { it.power }
 
     fun getMaxPower() = getUsers().sumOf { it.maxPower }

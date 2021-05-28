@@ -10,6 +10,7 @@ import net.hyren.factions.FACTION_NOT_FOUND
 import net.hyren.factions.FactionsConstants
 import net.hyren.factions.FactionsProvider
 import net.hyren.factions.YOU_ALREADY_HAVE_FACTION
+import net.hyren.factions.commands.FactionCommand
 import net.hyren.factions.echo.packet.*
 import net.hyren.factions.misc.player.list.updatePlayerList
 import net.hyren.factions.user.storage.dto.UpdateFactionUserDTO
@@ -22,13 +23,20 @@ import org.joda.time.DateTime
 /**
  * @author Gutyerrez
  */
-class FactionInviteAcceptCommand : CustomCommand("aceitar") {
+class FactionAcceptInviteCommand : CustomCommand("aceitar") {
 
-    override fun getParent() = FactionInviteCommand()
+    override fun getParent() = FactionCommand()
+
+    override fun getArguments() = listOf(
+        Argument("???"),
+        Argument("tag")
+    )
 
     override fun getUsage0(): Array<BaseComponent> = ComponentBuilder(
-        "§cUtilize /f convite aceitar <facção>."
+        "§cUtilize /f aceitar convite <tag>."
     ).create()
+
+    override fun getDescription0() = "Aceitar um convite de uma facção."
 
     override fun onCommand(
         commandSender: CommandSender,
@@ -38,11 +46,7 @@ class FactionInviteAcceptCommand : CustomCommand("aceitar") {
         var factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user!!.id) ?: throw NullPointerException(
             "faction user is null"
         )
-        val faction = FactionsProvider.Cache.Local.FACTION.provide().fetchByName(if (args.size != 1) {
-            args.joinToString(" ")
-        } else {
-            args[0]
-        }) ?: FactionsProvider.Cache.Local.FACTION.provide().fetchByTag(args[0])
+        val faction =  FactionsProvider.Cache.Local.FACTION.provide().fetchByTag(args[0])
 
         if (faction == null) {
             commandSender.sendMessage(DefaultMessage.FACTION_NOT_FOUND)

@@ -119,76 +119,74 @@ fun FactionUser.drawMap(): Array<BaseComponent> {
                         componentBuilder.append("  ")
                             .append("${
                                 if (direction == BlockFace.NORTH_WEST) {
-                                    "§c§l"
+                                    "§c"
                                 } else {
                                     "§6"
                                 }
-                            }\\")
+                            }§l\\")
                             .append("${
                                 if (direction == BlockFace.NORTH) {
-                                    "§c§l"
+                                    "§c"
                                 } else {
                                     "§6"
                                 }
-                            }N")
+                            }§lN")
                             .append("${
                                 if (direction == BlockFace.NORTH_EAST) {
-                                    "§c§l"
+                                    "§c"
                                 } else {
                                     "§6"
                                 }
-                            }/")
+                            }§l/")
                     }
                     3 -> {
                         componentBuilder.append("  ")
                             .append("${
                                 if (direction == BlockFace.WEST) {
-                                    "§c§l"
+                                    "§c"
                                 } else {
                                     "§6"
                                 }
-                            }O")
+                            }O§l")
                             .append("§6§l+")
                             .append("${
                                 if (direction == BlockFace.EAST) {
-                                    "§c§l"
+                                    "§c"
                                 } else {
                                     "§6"
                                 }
-                            }L")
+                            }L§l")
                     }
                     4 -> {
                         componentBuilder.append("  ")
                             .append("${
                                 if (direction == BlockFace.SOUTH_EAST) {
-                                    "§c§l"
+                                    "§c"
                                 } else {
                                     "§6"
                                 }
-                            }/")
+                            }§l/")
                             .append("${
                                 if (direction == BlockFace.SOUTH) {
-                                    "§c§l"
+                                    "§c"
                                 } else {
                                     "§6"
                                 }
-                            }S")
+                            }§lS")
                             .append("${
                                 if (direction == BlockFace.SOUTH_WEST) {
-                                    "§c§l"
+                                    "§c"
                                 } else {
                                     "§6"
                                 }
-                            }\\")
+                            }§l\\")
                     }
                     7, 8, 9, 10, 11, 12, 13, 14 ,15 ,16, 17, 18 -> {
                         if (landTypeIterator.hasNext()) {
                             val landType = landTypeIterator.next()
 
                             componentBuilder.append("  ")
-                                .append("${
-                                    landType.color + "${ChatColor.BOLD}" + FactionsConstants.Symbols.CUBE
-                                }")
+                                .append("${landType.color + "${ChatColor.BOLD}" + FactionsConstants.Symbols.CUBE}")
                                 .append("§f ${landType.displayName}")
                         }
                     }

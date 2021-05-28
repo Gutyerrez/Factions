@@ -18,6 +18,8 @@ class FactionProfileCommand : CustomCommand("perfil") {
 
     override fun getParent() = FactionCommand()
 
+    override fun getDescription0() = "Veja as informações de um jogador."
+
     override fun onCommand(
         commandSender: CommandSender,
         user: User?,

@@ -27,14 +27,15 @@ enum class LandType(
     val color: ChatColor
 ) {
 
-    SAFE("Zona protegida", ChatColor.GOLD),
-    WAR("Zona de guerra", ChatColor.DARK_RED),
-    FREE("Zona livre", ChatColor.GRAY),
+    ALLY("Aliada", ChatColor.AQUA),
+    NEUTRAL("Neutra", ChatColor.WHITE),
+    ENEMY("Inimiga", ChatColor.RED),
     CURRENT("Sua posição", ChatColor.YELLOW),
-    ALLY("Terra aliada", ChatColor.AQUA),
-    ENEMY("Terra inimiga", ChatColor.RED),
-    NEUTRAL("Terra neutra", ChatColor.WHITE),
-    CONTESTED("Terra contestada", ChatColor.GRAY),
-    TEMPORARY("Terra temporária", ChatColor.BLUE);
+    FREE("Zona Livre", ChatColor.GRAY),
+    SAFE("Zona Protegida", ChatColor.GOLD),
+    WAR("Zona de Guerra", ChatColor.DARK_RED),
+    CONTESTED("???", ChatColor.GRAY),
+    UNDER_ATTACK("Sob ataque", ChatColor.LIGHT_PURPLE),
+    TEMPORARY("Terrenos temporários", ChatColor.BLUE);
 
 }

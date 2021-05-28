@@ -86,7 +86,7 @@ data class FactionUser(
 
     fun getFactionTag() = getFaction()?.tag
 
-    fun getReceivedInvites() = FactionsProvider.Cache.Local.FACTION_INVITES.provide().fetchByFactionUserId(id)
+    fun getReceivedInvites() = FactionsProvider.Cache.Local.FACTION_INVITES.provide().fetchByFactionUserId(id) ?: emptyArray()
 
     fun getPlayer(): Player? = Bukkit.getPlayer(getUniqueId())
 

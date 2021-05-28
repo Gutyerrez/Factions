@@ -19,6 +19,8 @@ class FactionDisbandCommand : CustomCommand("desfazer"), FactionNeededCommandRes
 
     override fun getParent() = FactionCommand()
 
+    override fun getDescription0() = "Desfazer sua facção."
+
     override fun onCommand(
         commandSender: CommandSender,
         user: User?,

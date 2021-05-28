@@ -5,7 +5,9 @@ import net.hyren.core.shared.users.data.User
 import net.hyren.core.spigot.command.CustomCommand
 import net.hyren.factions.FactionsProvider
 import net.hyren.factions.commands.subcommands.*
+import net.hyren.factions.inventories.FactionInventory
 import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
 
 /**
  * @author Gutyerrez
@@ -29,6 +31,8 @@ class FactionCommand : CustomCommand("f") {
         user: User?,
         args: Array<out String>
     ): Boolean {
+        commandSender as Player
+
         if (args.size == 1) {
             return when (args[0].length) {
                 3 -> {
@@ -55,7 +59,9 @@ class FactionCommand : CustomCommand("f") {
                 }
             }
         } else {
-            // open inventory
+            val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(user.id!!)
+
+            commandSender.openInventory(FactionInventory(factionUser))
             return false
         }
     }

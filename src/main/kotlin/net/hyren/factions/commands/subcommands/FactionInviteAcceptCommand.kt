@@ -14,6 +14,7 @@ import net.hyren.factions.echo.packet.*
 import net.hyren.factions.misc.player.list.updatePlayerList
 import net.hyren.factions.user.storage.dto.UpdateFactionUserDTO
 import net.md_5.bungee.api.chat.TextComponent
+import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.command.CommandSender
 import org.joda.time.DateTime
 

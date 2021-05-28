@@ -78,7 +78,7 @@ class FactionInfoCommand : CustomCommand("info") {
                                 }
                             }")
 
-                            if (index % 3 == 0) {
+                            if (index % 3 != 0) {
                                 componentBuilder.append("\n")
                             }
                         }

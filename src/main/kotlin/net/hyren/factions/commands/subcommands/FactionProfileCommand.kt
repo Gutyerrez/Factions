@@ -41,7 +41,7 @@ class FactionProfileCommand : CustomCommand("perfil") {
         commandSender.sendMessage(
             ComponentBuilder()
                 .append("\n")
-                .append("                    ${factionUser.getHighestGroup(CoreProvider.application.server).prefix}§e${
+                .append("                    ${factionUser.getHighestGroup().getColoredPrefix()}§e${
                     if (factionUser.hasFaction()) {
                         factionUser.role?.prefix + factionUser.getFactionTag() + " " + factionUser.name
                     } else {

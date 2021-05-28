@@ -17,21 +17,22 @@ class FactionUserInviteAcceptedEchoPacketListener : EchoPacketListener {
         packet: FactionUserInviteAcceptedEchoPacket
     ) {
         var factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)!!
-        val faction = FactionsProvider.Cache.Local.FACTION.provide().fetchById(packet.factionId!!)!!
 
         FactionsProvider.Cache.Local.FACTION_USER.provide().refresh(factionUser)
         FactionsProvider.Cache.Local.FACTION_INVITES.provide().refresh(factionUser)
 
+        val faction = FactionsProvider.Cache.Local.FACTION.provide().fetchById(packet.factionId!!)!!
+
+        faction.getOnlineUsers().forEach { it.updatePlayerList() }
+
         FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)?.let {
             faction.getOnlinePlayers()
-                .filter { _factionUser -> _factionUser.uniqueId != it.getUniqueId() }
+                .filter { player -> player.uniqueId != it.getUniqueId() }
                 .forEach { player ->
                     player.sendMessage(
                         TextComponent("§aO usuário ${it.getFancyName()} §aé o mais novo membro da facção.")
                     )
                 }
-
-            it.updatePlayerList()
         }
     }
 

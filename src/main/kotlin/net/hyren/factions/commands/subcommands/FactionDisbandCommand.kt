@@ -36,16 +36,19 @@ class FactionDisbandCommand : CustomCommand("desfazer"), FactionNeededCommandRes
                 )
             )
         ) {
-            FactionsProvider.Repositories.PostgreSQL.FACTIONS_USERS_REPOSITORY.provide().update(
-                UpdateFactionUserDTO(
-                    factionUser.id
-                ) {
-                    it.role = null
-                    it.updatedAt = DateTime.now(
-                        CoreConstants.DATE_TIME_ZONE
-                    )
-                }
-            )
+            factionUser.getFaction()?.getUsers()?.forEach { factionUser ->
+                FactionsProvider.Repositories.PostgreSQL.FACTIONS_USERS_REPOSITORY.provide().update(
+                    UpdateFactionUserDTO(
+                        factionUser.id
+                    ) {
+                        it.role = null
+                        it.factionId = null
+                        it.updatedAt = DateTime.now(
+                            CoreConstants.DATE_TIME_ZONE
+                        )
+                    }
+                )
+            }
 
             CoreProvider.Databases.Redis.ECHO.provide().publishToCurrentServer(
                 FactionUserUpdatedEchoPacket(

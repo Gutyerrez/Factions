@@ -32,6 +32,8 @@ class PlayerJoinListener : Listener {
             }
         }
 
+        println(factionUser)
+
         factionUser?.updatePlayerList()
     }
 

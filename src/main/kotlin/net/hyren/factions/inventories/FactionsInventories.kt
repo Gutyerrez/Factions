@@ -22,7 +22,7 @@ final class FactionInventory(
     if (factionUser.hasFaction()) {
         6 * 9
     } else {
-        3 * 9
+        5 * 9
     }
 ) {
 

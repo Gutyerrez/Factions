@@ -45,8 +45,8 @@ data class FactionUser(
 
     // Settings
 
-    var mapAutoUpdating: Boolean = false,
-    var seeingChunks: Boolean = false,
+    var isMapAutoUpdating: Boolean = false,
+    var isSeeingChunks: Boolean = false,
 
     // Timestamps
 
@@ -90,6 +90,12 @@ data class FactionUser(
 
     fun getPlayer(): Player? = Bukkit.getPlayer(getUniqueId())
 
+    fun getChunk() = if (getPlayer() == null) {
+        throw NullPointerException()
+    } else {
+        getPlayer()!!.location.chunk
+    }
+
     fun getTotalKills() = enemyKills + civilianDeaths + neutralKills
 
     fun getTotalDeaths() = enemyDeaths + civilianDeaths + neutralDeaths
@@ -102,6 +108,22 @@ data class FactionUser(
 
     fun hasFaction() = factionId != null
 
+    fun hasInvites() = getReceivedInvites().isNotEmpty()
+
     override fun isOnline(): Boolean = super.isOnline() && getConnectedBukkitApplication()?.server == CoreProvider.application.server
+
+    override fun hashCode() = id.value.hashCode()
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+
+        if (javaClass != other?.javaClass) return false
+
+        other as FactionUser
+
+        if (user.id != other.user.id) return false
+
+        return true
+    }
 
 }

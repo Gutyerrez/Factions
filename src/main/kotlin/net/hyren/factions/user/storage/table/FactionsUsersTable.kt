@@ -22,8 +22,8 @@ object FactionsUsersTable : UUIDTable("factions_users", "user_id") {
     val enemyDeaths = integer("enemy_deaths").default(0)
     val neutralDeaths = integer("neutral_deaths").default(0)
     val civilianDeaths = integer("civilian_deaths").default(0)
-    val mapAutoUpdating = bool("map_auto_updating").default(false)
-    val seeingChunks = bool("seeing_chunks").default(false)
+    val mapAutoUpdating = bool("is_map_auto_updating").default(false)
+    val seeingChunks = bool("is_seeing_chunks").default(false)
     val createdAt = datetime("created_at").default(
         DateTime.now(
             CoreConstants.DATE_TIME_ZONE

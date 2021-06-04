@@ -1,7 +1,6 @@
 on:
   push:
-    branches:
-      - main
+    branches: [ 'main' ]
 
 jobs:
   factions:
@@ -20,18 +19,6 @@ jobs:
           distribution: 'adopt'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Clean project
-        run: ./gradlew clean
-      - name: Delete old versions of this packages
-        uses: hyrendev/delete-packages-version-action@0.1-ALPHA
-        with:
-          owner: ${{ secrets.OWNER }}
-          repository: ${{ secrets.NEXUS }}
-          token: ${{ secrets.ACCESS_TOKEN }}
-          packages: |
-            [
-              "net.hyren.factions"
-            ]
       - name: Build project
         run: ./gradlew shadowJar
       - name: Deploy project

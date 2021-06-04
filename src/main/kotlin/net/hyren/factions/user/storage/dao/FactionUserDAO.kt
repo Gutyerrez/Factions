@@ -26,8 +26,8 @@ class FactionUserDAO(
     var enemyDeaths by FactionsUsersTable.enemyDeaths
     var neutralDeaths by FactionsUsersTable.neutralDeaths
     var civilianDeaths by FactionsUsersTable.civilianDeaths
-    var mapAutoUpdating by FactionsUsersTable.mapAutoUpdating
-    var seeingChunks by FactionsUsersTable.seeingChunks
+    var isMapAutoUpdating by FactionsUsersTable.mapAutoUpdating
+    var isSeeingChunks by FactionsUsersTable.seeingChunks
     var createdAt by FactionsUsersTable.createdAt
     var updatedAt by FactionsUsersTable.updatedAt
 
@@ -43,8 +43,8 @@ class FactionUserDAO(
         enemyDeaths = enemyDeaths,
         neutralDeaths = neutralDeaths,
         civilianDeaths = civilianDeaths,
-        mapAutoUpdating = mapAutoUpdating,
-        seeingChunks = seeingChunks,
+        isMapAutoUpdating = isMapAutoUpdating,
+        isSeeingChunks = isSeeingChunks,
         createdAt = createdAt,
         updatedAt = updatedAt
     )

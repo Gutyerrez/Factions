@@ -14,9 +14,7 @@ repositories {
 
     jcenter()
 
-    maven("http://135.148.58.224:8081/artifactory/releases/") {
-        isAllowInsecureProtocol = true
-
+    maven("https://repository.hyren.net/") {
         credentials {
             username = System.getenv("MAVEN_USERNAME")
             password = System.getenv("MAVEN_PASSWORD")
@@ -88,7 +86,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             repositories {
-                maven("http://135.148.58.224:8081/artifactory/releases/") {
+                maven("https://repository.hyren.net/") {
                     isAllowInsecureProtocol = true
 
                     credentials {

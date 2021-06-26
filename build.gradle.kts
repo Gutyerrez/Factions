@@ -27,7 +27,7 @@ dependencies {
     compileOnly(kotlin("stdlib"))
     compileOnly(kotlin("reflect"))
 
-    // paer-spigot-server
+    // paper-spigot-server
     compileOnly("org.github.paperspigot:paper-spigot-server:1.8.8-R0.1-SNAPSHOT")
 
     // exposed

@@ -2,28 +2,15 @@ package net.hyren.factions.listeners
 
 import net.hyren.core.shared.CoreProvider
 import net.hyren.factions.FactionsProvider
-import net.hyren.factions.alpha.misc.player.list.data.PlayerList
 import net.hyren.factions.misc.controllers.FactionCreationController
-import org.bukkit.entity.Player
-import org.bukkit.event.*
-import org.bukkit.event.entity.EntitySpawnEvent
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerChatEvent
 
 /**
  * @author Gutyerrez
  */
-class GenericListeners : Listener {
-
-    @EventHandler
-    fun on(
-        event: EntitySpawnEvent
-    ) {
-        val entity = event.entity
-
-        if (entity is Player) {
-            PlayerList.hideCommonPlayers(entity)
-        }
-    }
+class GenericListener : Listener {
 
     @EventHandler
     fun on(

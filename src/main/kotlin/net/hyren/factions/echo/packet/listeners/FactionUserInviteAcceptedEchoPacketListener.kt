@@ -3,7 +3,6 @@ package net.hyren.factions.echo.packet.listeners
 import net.hyren.core.shared.echo.api.listener.EchoPacketListener
 import net.hyren.factions.FactionsProvider
 import net.hyren.factions.echo.packet.FactionUserInviteAcceptedEchoPacket
-import net.hyren.factions.misc.player.list.updatePlayerList
 import net.md_5.bungee.api.chat.TextComponent
 import org.greenrobot.eventbus.Subscribe
 
@@ -16,14 +15,12 @@ class FactionUserInviteAcceptedEchoPacketListener : EchoPacketListener {
     fun on(
         packet: FactionUserInviteAcceptedEchoPacket
     ) {
-        var factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)!!
+        val factionUser = FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)!!
 
         FactionsProvider.Cache.Local.FACTION_USER.provide().refresh(factionUser)
         FactionsProvider.Cache.Local.FACTION_INVITES.provide().refresh(factionUser)
 
         val faction = FactionsProvider.Cache.Local.FACTION.provide().fetchById(packet.factionId!!)!!
-
-        faction.getOnlineUsers().forEach { it.updatePlayerList() }
 
         FactionsProvider.Cache.Local.FACTION_USER.provide().fetchByUserId(packet.factionUserId!!)?.let {
             faction.getOnlinePlayers()

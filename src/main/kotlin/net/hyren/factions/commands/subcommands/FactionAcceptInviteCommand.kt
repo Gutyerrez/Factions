@@ -11,12 +11,12 @@ import net.hyren.factions.FactionsConstants
 import net.hyren.factions.FactionsProvider
 import net.hyren.factions.YOU_ALREADY_HAVE_FACTION
 import net.hyren.factions.commands.FactionCommand
-import net.hyren.factions.echo.packet.*
-import net.hyren.factions.misc.player.list.updatePlayerList
+import net.hyren.factions.echo.packet.FactionUserInviteAcceptedEchoPacket
+import net.hyren.factions.echo.packet.FactionUserUpdatedEchoPacket
 import net.hyren.factions.user.storage.dto.UpdateFactionUserDTO
 import net.md_5.bungee.api.chat.BaseComponent
-import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.chat.ComponentBuilder
+import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.command.CommandSender
 import org.joda.time.DateTime
 

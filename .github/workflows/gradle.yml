@@ -15,3 +15,5 @@ jobs:
       - name: Deploy project to artifactory
         run: ./gradlew publish
       - name: Deploy project to remote servers
+        run: |
+          sh /home/cloud/scripts/github/deploy.sh build/libs/factions.jar

@@ -16,4 +16,4 @@ jobs:
         run: ./gradlew publish
       - name: Deploy project to remote servers
         run: |
-          sh /home/cloud/scripts/github/deploy.sh build/libs/factions.jar
+          sh /home/cloud/scripts/services/github/actions/deploy.sh build/libs/factions.jar
